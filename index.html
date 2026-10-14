@@ -1,0 +1,3790 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#c93d83">
+    <meta name="color-scheme" content="dark">
+    <title>Happy Birthday, Rena!</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%82%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,500;1,9..144,600&family=Figtree:wght@400;500;600&display=swap">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box
+        }
+        
+         :root {
+            --night: #c93d83;
+            --rose: #ffb6d3;
+            --lavender: #cbb8ff;
+            --gold: #f2d086;
+            --ink: #fff8fc;
+            --ink-soft: rgba(255, 242, 250, .9);
+            --glass: rgba(255, 255, 255, .12);
+            --glass-edge: rgba(255, 255, 255, .3);
+            --display: "Fraunces", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+            --ui: "Figtree", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+            --ease-out: cubic-bezier(.2, .9, .25, 1)
+        }
+        
+        [hidden] {
+            display: none!important
+        }
+        
+        html {
+            height: 100%;
+            -webkit-text-size-adjust: 100%
+        }
+        
+        body {
+            margin: 0;
+            min-height: 100%;
+            background: var(--night);
+            color: var(--ink);
+            font-family: var(--ui);
+            line-height: 1.5;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent
+        }
+        
+        button,
+        input {
+            font: inherit
+        }
+        
+         :focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 3px
+        }
+        
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            white-space: nowrap;
+            border: 0
+        }
+        
+        .defs {
+            position: absolute;
+            width: 0;
+            height: 0;
+            overflow: hidden
+        }
+        
+        .sky {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            background: radial-gradient(110% 70% at 50% 108%, rgba(255, 214, 233, .55), transparent 62%), radial-gradient(80% 60% at 8% 0%, rgba(255, 170, 210, .45), transparent 60%), radial-gradient(70% 55% at 100% 14%, rgba(255, 200, 225, .35), transparent 60%), linear-gradient(180deg, #c93d83 0%, #e0629f 50%, #f08ab8 100%)
+        }
+        
+        .bokeh {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--c) 0%, transparent 66%);
+            opacity: .55;
+            animation: drift var(--t) ease-in-out infinite alternate
+        }
+        
+        .bokeh.b1 {
+            --c: rgba(255, 205, 226, .5);
+            --t: 26s;
+            width: 46vmax;
+            height: 46vmax;
+            left: -14vmax;
+            top: 40%
+        }
+        
+        .bokeh.b2 {
+            --c: rgba(255, 190, 220, .45);
+            --t: 32s;
+            width: 40vmax;
+            height: 40vmax;
+            right: -12vmax;
+            top: -10vmax
+        }
+        
+        .bokeh.b3 {
+            --c: rgba(255, 230, 170, .25);
+            --t: 22s;
+            width: 28vmax;
+            height: 28vmax;
+            left: 40%;
+            bottom: -16vmax
+        }
+        
+        @keyframes drift {
+            from {
+                transform: translate3d(0, 0, 0) scale(1)
+            }
+            to {
+                transform: translate3d(4vmax, -3vmax, 0) scale(1.12)
+            }
+        }
+        
+        #bgCanvas,
+        #fxCanvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: block
+        }
+        
+        #bgCanvas {
+            z-index: 0
+        }
+        
+        .layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden
+        }
+        
+        #balloonLayer {
+            z-index: 1
+        }
+        
+        #fxLayer {
+            z-index: 4
+        }
+        
+        #fxCanvas {
+            z-index: 5
+        }
+        
+        .app {
+            --cake-w: min(80vw, 48vh, 440px);
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(.75rem, 2.4vh, 1.6rem);
+            padding: max(1.4rem, env(safe-area-inset-top)) max(1.1rem, env(safe-area-inset-right)) max(1.6rem, env(safe-area-inset-bottom)) max(1.1rem, env(safe-area-inset-left));
+            text-align: center
+        }
+        
+        .app[data-phase="final"] {
+            --cake-w: min(70vw, 38vh, 380px)
+        }
+        
+        @supports (height:100dvh) {
+            .app {
+                min-height: 100dvh;
+                --cake-w: min(80vw, 48dvh, 440px)
+            }
+            .app[data-phase="final"] {
+                --cake-w: min(70vw, 38dvh, 380px)
+            }
+        }
+        
+        .hero {
+            display: grid;
+            grid-template-rows: 1fr;
+            opacity: 1;
+            transition: grid-template-rows .9s var(--ease-out), opacity .5s ease
+        }
+        
+        .hero-inner {
+            min-height: 0;
+            overflow: hidden;
+            padding: .1rem .2rem .3rem
+        }
+        
+        .app[data-phase="final"] .hero {
+            grid-template-rows: 0fr;
+            opacity: 0
+        }
+        
+        .title {
+            margin: 0;
+            font-family: var(--display);
+            font-style: italic;
+            font-weight: 500;
+            font-size: clamp(2.1rem, 1.2rem + 4.2vw, 4rem);
+            line-height: 1.04;
+            letter-spacing: -.012em;
+            text-wrap: balance;
+            font-variation-settings: "opsz" 144;
+            filter: drop-shadow(0 6px 28px rgba(150, 30, 90, .4))
+        }
+        
+        .title-text {
+            background: linear-gradient(100deg, #ffffff 0%, #ffe3ef 30%, #f7de9c 52%, #ffe3ef 72%, #ffffff 100%);
+            background-size: 220% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            animation: gilt 8s ease-in-out infinite alternate
+        }
+        
+        @keyframes gilt {
+            from {
+                background-position: 0% 50%
+            }
+            to {
+                background-position: 100% 50%
+            }
+        }
+        
+        .emoji {
+            font-style: normal;
+            display: inline-block
+        }
+        
+        .title .emoji {
+            animation: wiggle 4s ease-in-out infinite;
+            transform-origin: 50% 80%
+        }
+        
+        @keyframes wiggle {
+            0%,
+            78%,
+            100% {
+                transform: rotate(0)
+            }
+            84% {
+                transform: rotate(-10deg)
+            }
+            90% {
+                transform: rotate(8deg)
+            }
+            95% {
+                transform: rotate(-4deg)
+            }
+        }
+        
+        .stage {
+            display: flex;
+            justify-content: center;
+            width: 100%
+        }
+        
+        .cake-box {
+            position: relative;
+            width: var(--cake-w);
+            aspect-ratio: 400/412;
+            transition: width .9s var(--ease-out)
+        }
+        
+        .cake-halo {
+            position: absolute;
+            inset: -14% -22% -6%;
+            border-radius: 50%;
+            pointer-events: none;
+            background: radial-gradient(closest-side at 50% 58%, rgba(255, 200, 225, .4), rgba(255, 170, 210, .18) 48%, transparent 74%);
+            animation: halo 6s ease-in-out infinite
+        }
+        
+        .cake-halo::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: radial-gradient(closest-side at 50% 26%, rgba(255, 214, 140, .42), rgba(255, 190, 150, .12) 45%, transparent 70%);
+            opacity: 0;
+            transition: opacity 1.2s ease
+        }
+        
+        .cake-box.candlelit .cake-halo::after {
+            opacity: 1
+        }
+        
+        @keyframes halo {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: .85
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 1
+            }
+        }
+        
+        .cake-shadow {
+            position: absolute;
+            left: 16%;
+            right: 16%;
+            bottom: -1.5%;
+            height: 7%;
+            border-radius: 50%;
+            background: radial-gradient(closest-side, rgba(90, 10, 50, .55), transparent);
+            animation: shadow 5.2s ease-in-out infinite
+        }
+        
+        @keyframes shadow {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: .9
+            }
+            50% {
+                transform: scale(.9);
+                opacity: .65
+            }
+        }
+        
+        .cake-float {
+            position: absolute;
+            inset: 0;
+            animation: float 5.2s ease-in-out infinite
+        }
+        
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+            50% {
+                transform: translateY(-2.4%)
+            }
+        }
+        
+        .cake-bounce {
+            position: absolute;
+            inset: 0;
+            transform-origin: 50% 94%
+        }
+        
+        .cake-bounce.bounce {
+            animation: bounce 1.25s cubic-bezier(.3, .7, .4, 1) 2
+        }
+        
+        @keyframes bounce {
+            0% {
+                transform: none
+            }
+            15% {
+                transform: scale(1.04, .95)
+            }
+            32% {
+                transform: translateY(-5%) scale(.97, 1.04)
+            }
+            50% {
+                transform: scale(1.02, .98)
+            }
+            66% {
+                transform: translateY(-2%)
+            }
+            82% {
+                transform: scale(1.01, .99)
+            }
+            100% {
+                transform: none
+            }
+        }
+        
+        .cake-svg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+            display: block
+        }
+        
+        .cake-glow {
+            position: absolute;
+            z-index: 3;
+            left: 50%;
+            top: 20%;
+            width: 78%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            pointer-events: none;
+            background: radial-gradient(circle, rgba(255, 240, 200, .85) 0%, rgba(255, 190, 225, .35) 38%, transparent 68%);
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(.5);
+            mix-blend-mode: screen
+        }
+        
+        .cake-glow.flash {
+            animation: flash 1.5s ease-out
+        }
+        
+        @keyframes flash {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(.45)
+            }
+            22% {
+                opacity: 1
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1.5)
+            }
+        }
+        
+        .hotspot {
+            position: absolute;
+            z-index: 2;
+            left: 25%;
+            top: 1%;
+            width: 50%;
+            height: 44%;
+            border: 0;
+            padding: 0;
+            margin: 0;
+            border-radius: 50%;
+            background: transparent;
+            cursor: pointer;
+            touch-action: manipulation
+        }
+        
+        .hotspot:disabled {
+            pointer-events: none;
+            cursor: default
+        }
+        
+        .hotspot:focus:not(:focus-visible) {
+            outline: none
+        }
+        
+        .hotspot:focus-visible {
+            outline: 2px dashed var(--gold);
+            outline-offset: 4px
+        }
+        
+        .cake-name {
+            font-family: var(--display);
+            font-style: italic;
+            font-weight: 600;
+            font-size: 34px;
+            letter-spacing: .5px
+        }
+        
+        .shine {
+            animation: shine 7.5s ease-in-out 2.5s infinite
+        }
+        
+        @keyframes shine {
+            0% {
+                transform: translateX(0)
+            }
+            30%,
+            100% {
+                transform: translateX(540px)
+            }
+        }
+        
+        .tap-hint {
+            transition: opacity .5s ease
+        }
+        
+        .app:not([data-phase="idle"]) .tap-hint {
+            opacity: 0
+        }
+        
+        .tap-ring {
+            animation: march 1.6s linear infinite
+        }
+        
+        @keyframes march {
+            to {
+                stroke-dashoffset: -14
+            }
+        }
+        
+        .tap-pulse {
+            transform-box: fill-box;
+            transform-origin: center;
+            opacity: 0;
+            animation: tapPulse 2.2s ease-out infinite
+        }
+        
+        @keyframes tapPulse {
+            0% {
+                transform: scale(.5);
+                opacity: .55
+            }
+            100% {
+                transform: scale(1.35);
+                opacity: 0
+            }
+        }
+        
+        .hotspot:hover+.cake-svg .tap-pulse,
+        .hotspot:focus-visible+.cake-svg .tap-pulse {
+            animation-duration: 1.1s
+        }
+        
+        .hotspot:hover+.cake-svg .tap-ring,
+        .hotspot:focus-visible+.cake-svg .tap-ring {
+            stroke-width: 2.2
+        }
+        
+        .cake-svg.hint-flash .tap-ring {
+            animation: march 1.6s linear infinite, ringFlash .7s ease
+        }
+        
+        @keyframes ringFlash {
+            0%,
+            100% {
+                stroke-width: 1.5
+            }
+            40% {
+                stroke-width: 3.4;
+                stroke: #ffffff
+            }
+        }
+        
+        .tap-spark {
+            transform-box: fill-box;
+            transform-origin: center;
+            opacity: 0;
+            animation: twinkle 2.4s ease-in-out infinite
+        }
+        
+        .tap-spark.t2 {
+            animation-delay: .8s
+        }
+        
+        .tap-spark.t3 {
+            animation-delay: 1.6s
+        }
+        
+        @keyframes twinkle {
+            0%,
+            100% {
+                transform: scale(.2) rotate(0);
+                opacity: 0
+            }
+            50% {
+                transform: scale(1) rotate(45deg);
+                opacity: 1
+            }
+        }
+        
+        .candle .rise {
+            transform: translateY(58px);
+            transition: transform .95s cubic-bezier(.25, 1.12, .4, 1)
+        }
+        
+        .candle.risen .rise {
+            transform: translateY(0)
+        }
+        
+        .candle .c-shadow {
+            opacity: 0;
+            transition: opacity .6s ease .2s
+        }
+        
+        .candle.risen .c-shadow {
+            opacity: .26
+        }
+        
+        .flame {
+            transform-box: fill-box;
+            transform-origin: 50% 100%;
+            transform: scale(0);
+            opacity: 0;
+            transition: transform .5s cubic-bezier(.3, 1.7, .5, 1), opacity .25s ease
+        }
+        
+        .candle.lit .flame {
+            transform: scale(1);
+            opacity: 1
+        }
+        
+        .candle.out .flame {
+            transform: scale(.2, 0);
+            opacity: 0;
+            transition: transform .38s cubic-bezier(.6, 0, .9, .4), opacity .38s ease
+        }
+        
+        .flame-glow {
+            transform-box: fill-box;
+            transform-origin: center;
+            opacity: 0;
+            transition: opacity .6s ease
+        }
+        
+        .candle.lit .flame-glow {
+            opacity: .9;
+            animation: glowPulse 2.4s ease-in-out infinite;
+            animation-delay: calc(var(--i) * -.5s)
+        }
+        
+        @keyframes glowPulse {
+            0%,
+            100% {
+                transform: scale(.92)
+            }
+            50% {
+                transform: scale(1.08)
+            }
+        }
+        
+        .flame-lean {
+            transform-box: fill-box;
+            transform-origin: 50% 100%;
+            transform: rotate(calc(var(--wind, 0) * (20deg + var(--i) * 4deg))) scale(calc(1 - var(--prog, 0) * .3), calc(1 - var(--wind, 0) * .28 - var(--prog, 0) * .2));
+            transition: transform .1s linear
+        }
+        
+        .flame-flicker {
+            transform-box: fill-box;
+            transform-origin: 50% 100%
+        }
+        
+        .candle.lit .flame-flicker {
+            animation: flicker 1.7s ease-in-out infinite;
+            animation-delay: calc(var(--i) * -.41s)
+        }
+        
+        .cake-svg.blowing .candle.lit .flame-flicker {
+            animation: flickerHard .12s linear infinite alternate
+        }
+        
+        @keyframes flicker {
+            0%,
+            100% {
+                transform: scale(1, 1) skewX(0)
+            }
+            20% {
+                transform: scale(.96, 1.05) skewX(2deg)
+            }
+            40% {
+                transform: scale(1.03, .96) skewX(-1.5deg)
+            }
+            60% {
+                transform: scale(.98, 1.07) skewX(1deg)
+            }
+            80% {
+                transform: scale(1.02, .98) skewX(-2deg)
+            }
+        }
+        
+        @keyframes flickerHard {
+            0% {
+                transform: scale(.8, 1.15) skewX(-10deg)
+            }
+            100% {
+                transform: scale(1.1, .78) skewX(9deg)
+            }
+        }
+        
+        .ember {
+            opacity: 0
+        }
+        
+        .candle.out .ember {
+            animation: ember 2.4s ease-out forwards
+        }
+        
+        @keyframes ember {
+            0% {
+                opacity: 1;
+                fill: #ffcf7a
+            }
+            40% {
+                opacity: .9;
+                fill: #ff7a3d
+            }
+            100% {
+                opacity: 0;
+                fill: #5a2a2a
+            }
+        }
+        
+        .panel {
+            width: min(100%, 30rem);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: .9rem
+        }
+        
+        .instruction {
+            margin: 0;
+            padding: .75rem 1.4rem;
+            border-radius: 999px;
+            background: var(--glass);
+            border: 1px solid var(--glass-edge);
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+            box-shadow: 0 10px 30px -14px rgba(90, 10, 50, .7), inset 0 1px 0 rgba(255, 255, 255, .2);
+            font-size: clamp(1rem, .94rem + .3vw, 1.12rem);
+            font-weight: 500;
+            color: var(--ink)
+        }
+        
+        .app[data-phase="idle"] .instruction {
+            animation: breathe 3.4s ease-in-out infinite
+        }
+        
+        .app .instruction.nudge {
+            animation: nudge .6s ease
+        }
+        
+        @keyframes breathe {
+            0%,
+            100% {
+                box-shadow: 0 10px 30px -14px rgba(90, 10, 50, .7), 0 0 0 0 rgba(242, 208, 134, 0), inset 0 1px 0 rgba(255, 255, 255, .2)
+            }
+            50% {
+                box-shadow: 0 10px 30px -14px rgba(90, 10, 50, .7), 0 0 0 6px rgba(242, 208, 134, .18), inset 0 1px 0 rgba(255, 255, 255, .2)
+            }
+        }
+        
+        @keyframes nudge {
+            0%,
+            100% {
+                transform: none
+            }
+            20% {
+                transform: translateY(-4px)
+            }
+            40% {
+                transform: translateY(0)
+            }
+            60% {
+                transform: translateY(-2px)
+            }
+        }
+        
+        .mic {
+            width: 100%;
+            padding: 1rem 1.1rem 1.1rem;
+            border-radius: 24px;
+            background: linear-gradient(160deg, rgba(255, 255, 255, .16), rgba(255, 255, 255, .06));
+            border: 1px solid var(--glass-edge);
+            -webkit-backdrop-filter: blur(18px);
+            backdrop-filter: blur(18px);
+            box-shadow: 0 20px 50px -24px rgba(90, 10, 50, .8), inset 0 1px 0 rgba(255, 255, 255, .22);
+            display: grid;
+            gap: .8rem;
+            text-align: left;
+            animation: fadeUp .6s var(--ease-out) both
+        }
+        
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px)
+            }
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+        
+        .mic-row {
+            display: flex;
+            align-items: center;
+            gap: .9rem
+        }
+        
+        .mic-ring {
+            flex: none;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            padding: 3px;
+            background: conic-gradient(from -90deg, var(--gold) calc(var(--p, 0) * 360deg), rgba(255, 255, 255, .2) 0)
+        }
+        
+        .mic-core {
+            position: relative;
+            display: grid;
+            place-items: center;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #a8316f;
+            color: var(--ink)
+        }
+        
+        .mic-core svg {
+            width: 22px;
+            height: 22px
+        }
+        
+        .mic-slash {
+            position: absolute;
+            inset: 0;
+            margin: auto;
+            width: 26px;
+            height: 2px;
+            border-radius: 2px;
+            background: #ffd1dd;
+            transform: rotate(-45deg);
+            opacity: 0
+        }
+        
+        .mic[data-state="denied"] .mic-slash,
+        .mic[data-state="unavailable"] .mic-slash {
+            opacity: 1
+        }
+        
+        .mic[data-state="blowing"] .mic-core {
+            animation: micPulse .45s ease-in-out infinite alternate
+        }
+        
+        @keyframes micPulse {
+            from {
+                box-shadow: 0 0 0 0 rgba(255, 182, 211, 0)
+            }
+            to {
+                box-shadow: 0 0 0 6px rgba(255, 182, 211, .4)
+            }
+        }
+        
+        .mic-info {
+            flex: 1;
+            min-width: 0
+        }
+        
+        .mic-status {
+            margin: 0 0 .45rem;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            font-weight: 600;
+            font-size: .98rem;
+            line-height: 1.3
+        }
+        
+        .mic-dot {
+            flex: none;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .5)
+        }
+        
+        .mic[data-state="pending"] .mic-dot {
+            background: #f2d086;
+            animation: dotPulse 1.2s ease-in-out infinite
+        }
+        
+        .mic[data-state="ready"] .mic-dot,
+        .mic[data-state="calibrating"] .mic-dot,
+        .mic[data-state="listening"] .mic-dot {
+            background: #9ff0c9;
+            animation: dotPulse 1.6s ease-in-out infinite
+        }
+        
+        .mic[data-state="blowing"] .mic-dot {
+            background: #ffffff;
+            animation: dotPulse .45s ease-in-out infinite
+        }
+        
+        .mic[data-state="done"] .mic-dot {
+            background: var(--gold)
+        }
+        
+        .mic[data-state="denied"] .mic-dot,
+        .mic[data-state="unavailable"] .mic-dot {
+            background: #ffd1dd
+        }
+        
+        @keyframes dotPulse {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: .6
+            }
+        }
+        
+        .meter {
+            position: relative;
+            height: 8px;
+            border-radius: 99px;
+            background: rgba(255, 255, 255, .2);
+            overflow: hidden
+        }
+        
+        .meter-fill {
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            transform-origin: 0 50%;
+            transform: scaleX(0);
+            background: linear-gradient(90deg, #ffe3ef, #ffffff 55%, #f2d086)
+        }
+        
+        .meter-mark {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 10%;
+            width: 2px;
+            margin-left: -1px;
+            background: rgba(255, 255, 255, .75)
+        }
+        
+        .meter-legend {
+            display: flex;
+            justify-content: space-between;
+            margin-top: .3rem;
+            font-size: .75rem;
+            color: var(--ink-soft)
+        }
+        
+        .mic-help {
+            margin: 0;
+            font-size: .9rem;
+            line-height: 1.55;
+            color: var(--ink-soft)
+        }
+        
+        .mic .btn {
+            width: 100%
+        }
+        
+        .btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            min-height: 50px;
+            padding: .8rem 1.6rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: .01em;
+            color: var(--ink);
+            cursor: pointer;
+            touch-action: manipulation;
+            transition: transform .2s var(--ease-out), box-shadow .3s ease, background-color .3s ease, opacity .3s ease
+        }
+        
+        .btn:hover:not(:disabled) {
+            transform: translateY(-2px)
+        }
+        
+        .btn:active:not(:disabled) {
+            transform: translateY(0) scale(.98)
+        }
+        
+        .btn:disabled {
+            opacity: .45;
+            cursor: not-allowed
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #a02a6a 0%, #8a3f9e 55%, #6a45c7 100%);
+            border-color: rgba(242, 208, 134, .55);
+            box-shadow: 0 14px 34px -14px rgba(120, 20, 70, .8), inset 0 1px 0 rgba(255, 255, 255, .28);
+            color: #ffffff
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            box-shadow: 0 18px 40px -12px rgba(120, 20, 70, .9), 0 0 0 4px rgba(242, 208, 134, .18), inset 0 1px 0 rgba(255, 255, 255, .28)
+        }
+        
+        .btn-ghost {
+            background: rgba(255, 255, 255, .12);
+            border-color: rgba(255, 255, 255, .34)
+        }
+        
+        .btn-ghost:hover:not(:disabled) {
+            background: rgba(255, 255, 255, .2)
+        }
+        
+        .btn-soft {
+            background: rgba(242, 208, 134, .2);
+            border-color: rgba(242, 208, 134, .65);
+            color: #fff4d9
+        }
+        
+        .btn-soft:hover:not(:disabled) {
+            background: rgba(242, 208, 134, .3)
+        }
+        
+        .card {
+            position: relative;
+            width: 100%;
+            padding: clamp(1.6rem, 4vw, 2.4rem) clamp(1.3rem, 4vw, 2.4rem);
+            border-radius: 30px;
+            background: linear-gradient(150deg, rgba(255, 255, 255, .22), rgba(255, 255, 255, .08) 60%, rgba(255, 214, 235, .12));
+            border: 1px solid rgba(255, 255, 255, .34);
+            -webkit-backdrop-filter: blur(22px) saturate(150%);
+            backdrop-filter: blur(22px) saturate(150%);
+            box-shadow: 0 34px 80px -34px rgba(90, 10, 50, .85), inset 0 1px 0 rgba(255, 255, 255, .4), inset 0 0 0 1px rgba(242, 208, 134, .1);
+            overflow: hidden;
+            animation: cardIn 1.1s var(--ease-out) both
+        }
+        
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: -40% -60%;
+            background: linear-gradient(115deg, transparent 42%, rgba(255, 255, 255, .2) 50%, transparent 58%);
+            transform: translateX(-60%);
+            animation: sheen 2.6s ease-in-out .6s both;
+            pointer-events: none
+        }
+        
+        .card-title {
+            position: relative;
+            margin: 0;
+            font-family: var(--display);
+            font-style: italic;
+            font-weight: 600;
+            font-size: clamp(1.9rem, 1.3rem + 2.6vw, 2.9rem);
+            line-height: 1.08;
+            text-wrap: balance;
+            font-variation-settings: "opsz" 144
+        }
+        
+        .card-msg {
+            position: relative;
+            margin: .9rem auto 0;
+            max-width: 27ch;
+            font-size: clamp(1.02rem, .96rem + .35vw, 1.18rem);
+            line-height: 1.6;
+            color: var(--ink-soft)
+        }
+        
+        .card-actions {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            margin-top: 1.4rem
+        }
+        
+        .card>.card-title,
+        .card>.card-msg,
+        .card>.card-actions {
+            animation: fadeScale .9s var(--ease-out) both
+        }
+        
+        .card>.card-title {
+            animation-delay: .25s
+        }
+        
+        .card>.card-msg {
+            animation-delay: .55s
+        }
+        
+        .card>.card-actions {
+            animation-delay: .85s
+        }
+        
+        @keyframes cardIn {
+            from {
+                opacity: 0;
+                transform: translateY(24px) scale(.88)
+            }
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+        
+        @keyframes fadeScale {
+            from {
+                opacity: 0;
+                transform: scale(.9) translateY(8px)
+            }
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+        
+        @keyframes sheen {
+            from {
+                transform: translateX(-60%)
+            }
+            to {
+                transform: translateX(60%)
+            }
+        }
+        
+        .dock {
+            position: fixed;
+            z-index: 6;
+            top: max(.8rem, env(safe-area-inset-top));
+            right: max(.8rem, env(safe-area-inset-right));
+            display: flex;
+            align-items: center;
+            gap: .4rem;
+            padding: .35rem .7rem .35rem .35rem;
+            border-radius: 999px;
+            background: rgba(120, 25, 75, .55);
+            border: 1px solid var(--glass-edge);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            box-shadow: 0 14px 36px -18px rgba(60, 0, 30, .8);
+            animation: fadeUp .6s var(--ease-out) both
+        }
+        
+        .icon-btn {
+            display: grid;
+            place-items: center;
+            width: 44px;
+            height: 44px;
+            padding: 0;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, .28);
+            background: rgba(255, 255, 255, .12);
+            color: var(--ink);
+            cursor: pointer;
+            transition: background-color .2s ease
+        }
+        
+        .icon-btn:hover {
+            background: rgba(255, 255, 255, .22)
+        }
+        
+        .icon-btn svg {
+            width: 20px;
+            height: 20px;
+            display: block
+        }
+        
+        .icon-btn .i-pause,
+        .icon-btn .i-mute {
+            display: none
+        }
+        
+        #musicToggle[data-state="playing"] .i-play {
+            display: none
+        }
+        
+        #musicToggle[data-state="playing"] .i-pause {
+            display: block
+        }
+        
+        #muteToggle[data-state="muted"] .i-vol {
+            display: none
+        }
+        
+        #muteToggle[data-state="muted"] .i-mute {
+            display: block
+        }
+        
+        .vol {
+            width: clamp(72px, 18vw, 112px);
+            height: 28px;
+            margin: 0;
+            accent-color: #ffe3ef;
+            cursor: pointer
+        }
+        
+        .smoke {
+            position: absolute;
+            width: var(--s);
+            height: var(--s);
+            margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2);
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(248, 240, 252, .8) 0%, rgba(232, 222, 246, .35) 45%, transparent 70%);
+            filter: blur(1.4px);
+            opacity: 0;
+            animation: smokeRise var(--dur) cubic-bezier(.3, .55, .35, 1) var(--delay) forwards;
+            will-change: transform, opacity
+        }
+        
+        @keyframes smokeRise {
+            0% {
+                opacity: 0;
+                transform: translate(0, 0) scale(.35)
+            }
+            12% {
+                opacity: .85
+            }
+            55% {
+                opacity: .45;
+                transform: translate(calc(var(--dx) * -.35), calc(var(--dy) * .55)) scale(1.9)
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--dx), var(--dy)) scale(3.1)
+            }
+        }
+        
+        .wisp {
+            position: absolute;
+            width: 16px;
+            height: 56px;
+            margin: -54px 0 0 -8px;
+            animation: wispUp 2.6s ease-out forwards
+        }
+        
+        .wisp svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+            display: block
+        }
+        
+        .wisp path {
+            fill: none;
+            stroke: rgba(244, 236, 252, .7);
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: wispDraw 1.4s ease-out forwards
+        }
+        
+        @keyframes wispDraw {
+            to {
+                stroke-dashoffset: 0
+            }
+        }
+        
+        @keyframes wispUp {
+            0% {
+                opacity: 0;
+                transform: translateY(4px) scaleX(.8)
+            }
+            20% {
+                opacity: 1
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-46px) scaleX(1.5)
+            }
+        }
+        
+        .sparkle {
+            position: absolute;
+            width: var(--s);
+            height: var(--s);
+            margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2);
+            animation: sparkle var(--d) ease-in-out forwards;
+            filter: drop-shadow(0 0 6px currentColor)
+        }
+        
+        .sparkle svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+            fill: currentColor
+        }
+        
+        @keyframes sparkle {
+            0% {
+                transform: scale(0) rotate(0);
+                opacity: 0
+            }
+            45% {
+                transform: scale(1) rotate(60deg);
+                opacity: 1
+            }
+            100% {
+                transform: scale(0) rotate(160deg);
+                opacity: 0
+            }
+        }
+        
+        .balloon {
+            position: absolute;
+            top: 100%;
+            width: var(--size);
+            animation: balloonRise var(--dur) cubic-bezier(.32, .08, .5, .95) forwards;
+            will-change: transform
+        }
+        
+        .balloon-sway {
+            transform-origin: 50% 0;
+            animation: balloonSway var(--sd) ease-in-out infinite alternate
+        }
+        
+        .balloon svg {
+            display: block;
+            width: 100%;
+            height: auto;
+            overflow: visible
+        }
+        
+        @keyframes balloonRise {
+            from {
+                transform: translate3d(0, 0, 0)
+            }
+            to {
+                transform: translate3d(0, calc(-100vh - 100% - 60px), 0)
+            }
+        }
+        
+        @keyframes balloonSway {
+            from {
+                transform: translateX(calc(var(--sway) * -1)) rotate(calc(var(--tilt) * -1))
+            }
+            to {
+                transform: translateX(var(--sway)) rotate(var(--tilt))
+            }
+        }
+        
+        .popper {
+            position: absolute;
+            bottom: calc(env(safe-area-inset-bottom, 0px) - 6px);
+            width: clamp(58px, 8vw, 92px);
+            animation: popperIn .55s var(--ease-out) both
+        }
+        
+        .popper.left {
+            left: max(6px, env(safe-area-inset-left))
+        }
+        
+        .popper.right {
+            right: max(6px, env(safe-area-inset-right))
+        }
+        
+        .popper-rot {
+            transform: rotate(32deg);
+            transform-origin: 50% 100%
+        }
+        
+        .popper.right .popper-rot {
+            transform: rotate(-32deg)
+        }
+        
+        .popper-body {
+            position: relative;
+            transform-origin: 50% 100%
+        }
+        
+        .popper-body svg {
+            display: block;
+            width: 100%;
+            height: auto
+        }
+        
+        .mouth {
+            position: absolute;
+            left: 50%;
+            top: 14%;
+            width: 2px;
+            height: 2px;
+            margin-left: -1px
+        }
+        
+        .popper-body.pop {
+            animation: popRecoil .5s cubic-bezier(.2, .8, .3, 1)
+        }
+        
+        @keyframes popRecoil {
+            0% {
+                transform: none
+            }
+            16% {
+                transform: translateY(9%) scale(1.06, .84)
+            }
+            55% {
+                transform: translateY(-3%) scale(.98, 1.05)
+            }
+            100% {
+                transform: none
+            }
+        }
+        
+        @keyframes popperIn {
+            from {
+                transform: translateY(120%)
+            }
+            to {
+                transform: none
+            }
+        }
+        
+        .popper.leave {
+            animation: popperOut .7s ease-in forwards
+        }
+        
+        @keyframes popperOut {
+            from {
+                transform: none;
+                opacity: 1
+            }
+            to {
+                transform: translateY(130%);
+                opacity: 0
+            }
+        }
+        
+        @media (max-width:599px) {
+            .app {
+                --cake-w: min(86vw, 44vh, 400px);
+                gap: .7rem;
+                padding: max(1rem, env(safe-area-inset-top)) max(.9rem, env(safe-area-inset-right)) max(1.2rem, env(safe-area-inset-bottom)) max(.9rem, env(safe-area-inset-left))
+            }
+            .app[data-phase="final"] {
+                --cake-w: min(74vw, 34vh, 340px)
+            }
+            .title {
+                font-size: clamp(1.85rem, 8.6vw, 2.6rem)
+            }
+            .panel {
+                gap: .7rem
+            }
+            .instruction {
+                padding: .65rem 1.1rem;
+                font-size: .98rem
+            }
+            .mic {
+                padding: .85rem .9rem .95rem;
+                gap: .65rem;
+                border-radius: 20px
+            }
+            .mic-row {
+                gap: .7rem
+            }
+            .mic-ring {
+                width: 44px;
+                height: 44px
+            }
+            .mic-core svg {
+                width: 19px;
+                height: 19px
+            }
+            .mic-status {
+                font-size: .92rem;
+                margin-bottom: .35rem
+            }
+            .meter {
+                height: 7px
+            }
+            .meter-legend {
+                font-size: .7rem
+            }
+            .mic-help {
+                font-size: .84rem;
+                line-height: 1.45
+            }
+            .btn {
+                min-height: 48px;
+                padding: .75rem 1.2rem;
+                font-size: .98rem
+            }
+            .card {
+                padding: 1.4rem 1.1rem 1.5rem;
+                border-radius: 24px
+            }
+            .card-msg {
+                margin-top: .7rem
+            }
+            .card-actions {
+                margin-top: 1.1rem
+            }
+            .dock {
+                top: max(.6rem, env(safe-area-inset-top));
+                right: max(.6rem, env(safe-area-inset-right));
+                padding: .3rem .55rem .3rem .3rem;
+                gap: .3rem
+            }
+            .icon-btn {
+                width: 40px;
+                height: 40px
+            }
+            .icon-btn svg {
+                width: 18px;
+                height: 18px
+            }
+            .vol {
+                width: 68px
+            }
+            .popper {
+                width: 54px
+            }
+            @supports (height:100dvh) {
+                .app {
+                    --cake-w: min(86vw, 44dvh, 400px)
+                }
+                .app[data-phase="final"] {
+                    --cake-w: min(74vw, 34dvh, 340px)
+                }
+            }
+        }
+        
+        @media (min-width:600px) and (max-width:1100px) and (orientation:portrait) {
+            .app {
+                --cake-w: min(68vw, 44vh, 540px);
+                gap: clamp(1.1rem, 2.8vh, 2rem);
+                padding: max(2rem, env(safe-area-inset-top)) max(2rem, env(safe-area-inset-right)) max(2.2rem, env(safe-area-inset-bottom)) max(2rem, env(safe-area-inset-left))
+            }
+            .app[data-phase="final"] {
+                --cake-w: min(56vw, 35vh, 440px)
+            }
+            .title {
+                font-size: clamp(3rem, 6.6vw, 4.4rem)
+            }
+            .panel {
+                width: min(100%, 36rem);
+                gap: 1.1rem
+            }
+            .instruction {
+                font-size: 1.15rem;
+                padding: .85rem 1.7rem
+            }
+            .mic {
+                padding: 1.25rem 1.4rem 1.35rem;
+                gap: .95rem;
+                border-radius: 28px
+            }
+            .mic-ring {
+                width: 60px;
+                height: 60px
+            }
+            .mic-core svg {
+                width: 26px;
+                height: 26px
+            }
+            .mic-status {
+                font-size: 1.05rem
+            }
+            .meter {
+                height: 10px
+            }
+            .meter-legend {
+                font-size: .8rem
+            }
+            .mic-help {
+                font-size: .98rem
+            }
+            .btn {
+                min-height: 56px;
+                font-size: 1.08rem;
+                padding: .9rem 2rem
+            }
+            .card {
+                padding: 2.6rem 2.6rem 2.8rem;
+                border-radius: 34px
+            }
+            .card-title {
+                font-size: clamp(2.6rem, 5.4vw, 3.4rem)
+            }
+            .card-msg {
+                font-size: 1.25rem;
+                max-width: 30ch
+            }
+            .dock {
+                top: max(1.2rem, env(safe-area-inset-top));
+                right: max(1.2rem, env(safe-area-inset-right))
+            }
+            .icon-btn {
+                width: 48px;
+                height: 48px
+            }
+            .vol {
+                width: 130px
+            }
+            .popper {
+                width: 96px
+            }
+            @supports (height:100dvh) {
+                .app {
+                    --cake-w: min(68vw, 44dvh, 540px)
+                }
+                .app[data-phase="final"] {
+                    --cake-w: min(56vw, 35dvh, 440px)
+                }
+            }
+        }
+        
+        @media (orientation:landscape) and (min-width:900px) and (max-width:1400px) and (min-height:541px) and (pointer:coarse) {
+            .app {
+                --cake-w: min(46vw, 72vh, 560px);
+                display: grid;
+                grid-template-columns: auto minmax(0, 30rem);
+                grid-template-areas: "stage hero" "stage panel";
+                align-content: center;
+                justify-content: center;
+                column-gap: clamp(2rem, 5vw, 4.5rem);
+                row-gap: 1.2rem;
+                padding: max(1.6rem, env(safe-area-inset-top)) max(2rem, env(safe-area-inset-right)) max(1.6rem, env(safe-area-inset-bottom)) max(2rem, env(safe-area-inset-left))
+            }
+            .app[data-phase="final"] {
+                --cake-w: min(42vw, 66vh, 500px)
+            }
+            .hero {
+                grid-area: hero;
+                align-self: end
+            }
+            .stage {
+                grid-area: stage;
+                align-self: center
+            }
+            .panel {
+                grid-area: panel;
+                align-self: start;
+                width: 100%
+            }
+            .app[data-phase="final"] .panel {
+                grid-row: 1/3;
+                align-self: center
+            }
+            .title {
+                font-size: clamp(2.8rem, 4.4vw, 4rem)
+            }
+            .instruction {
+                font-size: 1.12rem;
+                padding: .8rem 1.6rem
+            }
+            .mic {
+                padding: 1.2rem 1.3rem 1.3rem;
+                gap: .9rem;
+                border-radius: 26px
+            }
+            .mic-ring {
+                width: 58px;
+                height: 58px
+            }
+            .mic-core svg {
+                width: 25px;
+                height: 25px
+            }
+            .mic-status {
+                font-size: 1.04rem
+            }
+            .meter {
+                height: 10px
+            }
+            .mic-help {
+                font-size: .96rem
+            }
+            .btn {
+                min-height: 54px;
+                font-size: 1.05rem
+            }
+            .card {
+                padding: 2.4rem 2.2rem 2.6rem;
+                border-radius: 32px
+            }
+            .card-title {
+                font-size: clamp(2.4rem, 3.6vw, 3.2rem)
+            }
+            .card-msg {
+                font-size: 1.2rem
+            }
+            .dock {
+                top: max(1.1rem, env(safe-area-inset-top));
+                right: max(1.1rem, env(safe-area-inset-right))
+            }
+            .icon-btn {
+                width: 48px;
+                height: 48px
+            }
+            .vol {
+                width: 130px
+            }
+            .popper {
+                width: 92px
+            }
+            @supports (height:100dvh) {
+                .app {
+                    --cake-w: min(46vw, 72dvh, 560px)
+                }
+                .app[data-phase="final"] {
+                    --cake-w: min(42vw, 66dvh, 500px)
+                }
+            }
+        }
+        
+        @media (orientation:landscape) and (max-height:540px) {
+            .app {
+                --cake-w: min(40vw, 72vh, 340px);
+                display: grid;
+                grid-template-columns: auto minmax(0, 24rem);
+                grid-template-areas: "stage hero" "stage panel";
+                align-content: center;
+                justify-content: center;
+                column-gap: clamp(1rem, 4vw, 3rem);
+                row-gap: .8rem
+            }
+            .app[data-phase="final"] {
+                --cake-w: min(36vw, 64vh, 300px)
+            }
+            .hero {
+                grid-area: hero;
+                align-self: end
+            }
+            .stage {
+                grid-area: stage
+            }
+            .panel {
+                grid-area: panel;
+                align-self: start
+            }
+            .app[data-phase="final"] .panel {
+                grid-row: 1/3;
+                align-self: center
+            }
+            .title {
+                font-size: clamp(1.6rem, 3.2vw + .6rem, 2.4rem)
+            }
+            @supports (height:100dvh) {
+                .app {
+                    --cake-w: min(40vw, 72dvh, 340px)
+                }
+                .app[data-phase="final"] {
+                    --cake-w: min(36vw, 64dvh, 300px)
+                }
+            }
+        }
+        
+        @keyframes fadeOnly {
+            from {
+                opacity: 0
+            }
+            to {
+                opacity: 1
+            }
+        }
+        
+        @media (prefers-reduced-motion:reduce) {
+            .bokeh,
+            .cake-float,
+            .cake-shadow,
+            .cake-halo,
+            .title-text,
+            .title .emoji,
+            .shine,
+            .tap-ring,
+            .app[data-phase="idle"] .instruction,
+            .balloon-sway {
+                animation: none!important
+            }
+            .cake-bounce.bounce {
+                animation: none
+            }
+            .candle.lit .flame-flicker {
+                animation-duration: 5s
+            }
+            .cake-svg.blowing .candle.lit .flame-flicker {
+                animation-duration: .4s
+            }
+            .candle .rise {
+                transition-duration: .5s
+            }
+            .card,
+            .card>*,
+            .mic,
+            .dock {
+                animation-name: fadeOnly!important
+            }
+            .card::before {
+                display: none
+            }
+            .hero,
+            .cake-box {
+                transition-duration: .3s
+            }
+            .sparkle {
+                animation-duration: 2.6s
+            }
+            .tap-pulse {
+                animation-duration: 4s
+            }
+            .btn:hover:not(:disabled) {
+                transform: none
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sky" aria-hidden="true">
+        <div class="bokeh b1"></div>
+        <div class="bokeh b2"></div>
+        <div class="bokeh b3"></div>
+    </div>
+    <canvas id="bgCanvas" aria-hidden="true"></canvas>
+    <div id="balloonLayer" class="layer" aria-hidden="true"></div>
+
+    <main class="app" id="app" data-phase="idle">
+        <header class="hero" id="hero">
+            <div class="hero-inner">
+                <h1 class="title"><span class="title-text">Happy Birthday, Rena!</span> <span class="emoji" role="img" aria-label="birthday cake">🎂</span></h1>
+            </div>
+        </header>
+
+        <section class="stage" aria-label="Rena's birthday cake">
+            <div class="cake-box" id="cakeBox">
+                <div class="cake-halo" aria-hidden="true"></div>
+                <div class="cake-shadow" aria-hidden="true"></div>
+                <div class="cake-float">
+                    <div class="cake-bounce" id="cakeBounce">
+                        <button class="hotspot" id="hotspot" type="button" aria-label="Tap the top of the cake to add and light the candles"></button>
+                        <svg class="cake-svg" id="cakeSvg" viewBox="0 48 400 412" role="img" aria-labelledby="cakeTitle">
+<title id="cakeTitle">A three-tier pink birthday cake with Rena written in gold</title>
+<defs>
+<linearGradient id="tierPink" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d97aa3"/><stop offset=".16" stop-color="#f2a9c8"/><stop offset=".5" stop-color="#ffd0e2"/><stop offset=".82" stop-color="#f0a3c4"/><stop offset="1" stop-color="#cf6f99"/></linearGradient>
+<linearGradient id="tierLav" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e0689a"/><stop offset=".16" stop-color="#f58db7"/><stop offset=".5" stop-color="#ffb3d0"/><stop offset=".82" stop-color="#f07fae"/><stop offset="1" stop-color="#d25b8d"/></linearGradient>
+<linearGradient id="tierCream" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f4a6c6"/><stop offset=".16" stop-color="#ffc9dd"/><stop offset=".5" stop-color="#ffe4ee"/><stop offset=".82" stop-color="#ffbfd5"/><stop offset="1" stop-color="#e993b6"/></linearGradient>
+<linearGradient id="frostWhite" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f1e7f3"/></linearGradient>
+<linearGradient id="frostPink" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd3e4"/><stop offset="1" stop-color="#f39cc3"/></linearGradient>
+<linearGradient id="frostLav" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9f2"/><stop offset="1" stop-color="#f7b3cf"/></linearGradient>
+<linearGradient id="gold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a8782f"/><stop offset=".3" stop-color="#f7df9f"/><stop offset=".55" stop-color="#c9953f"/><stop offset=".8" stop-color="#f2d38a"/><stop offset="1" stop-color="#9c6d2a"/></linearGradient>
+<radialGradient id="pearl" cx=".35" cy=".32" r=".8"><stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#f5eef8"/><stop offset="1" stop-color="#c7b6d4"/></radialGradient>
+<radialGradient id="goldBead" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#fff6da"/><stop offset=".45" stop-color="#f0cc74"/><stop offset="1" stop-color="#9f722b"/></radialGradient>
+<radialGradient id="plateTop" cx=".5" cy=".35" r=".75"><stop offset="0" stop-color="#ffffff"/><stop offset=".65" stop-color="#f5eef9"/><stop offset="1" stop-color="#d9cbe5"/></radialGradient>
+<linearGradient id="nameGold" gradientUnits="userSpaceOnUse" x1="0" y1="344" x2="0" y2="380"><stop offset="0" stop-color="#fff1c9"/><stop offset=".45" stop-color="#f2d086"/><stop offset="1" stop-color="#b8862f"/></linearGradient>
+<radialGradient id="flameOuter" cx=".5" cy=".8" r=".75"><stop offset="0" stop-color="#fffdf2"/><stop offset=".3" stop-color="#ffe89c"/><stop offset=".62" stop-color="#ffb24a"/><stop offset=".88" stop-color="#ff7b3e" stop-opacity=".85"/><stop offset="1" stop-color="#ff5c3a" stop-opacity="0"/></radialGradient>
+<radialGradient id="flameInner" cx=".5" cy=".82" r=".7"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#fff6d6"/><stop offset="1" stop-color="#ffe39a" stop-opacity=".3"/></radialGradient>
+<radialGradient id="flameGlow"><stop offset="0" stop-color="#ffd98c" stop-opacity=".7"/><stop offset=".45" stop-color="#ffb88a" stop-opacity=".25"/><stop offset="1" stop-color="#ff9f8a" stop-opacity="0"/></radialGradient>
+<linearGradient id="candleShade" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5a2860" stop-opacity=".3"/><stop offset=".35" stop-color="#ffffff" stop-opacity=".15"/><stop offset=".55" stop-color="#ffffff" stop-opacity=".3"/><stop offset=".78" stop-color="#ffffff" stop-opacity="0"/><stop offset="1" stop-color="#5a2860" stop-opacity=".32"/></linearGradient>
+<pattern id="stripePink" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(40)"><rect width="7" height="7" fill="#fff7fb"/><rect width="3" height="7" fill="#f28fbb"/></pattern>
+<pattern id="stripeLav" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(40)"><rect width="7" height="7" fill="#fff7fb"/><rect width="3" height="7" fill="#f28fbb"/></pattern>
+<pattern id="stripeGold" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(40)"><rect width="7" height="7" fill="#fff9ef"/><rect width="3" height="7" fill="#e3b95a"/></pattern>
+<linearGradient id="shineGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffffff" stop-opacity="0"/><stop offset=".5" stop-color="#ffffff" stop-opacity=".42"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient>
+<path id="nameArc" d="M69.8 358.9 A150 26 0 0 0 330.2 358.9"/>
+<symbol id="spark" viewBox="-1 -1 2 2"><path d="M0 -1C0.12 -0.12 0.12 -0.12 1 0C0.12 0.12 0.12 0.12 0 1C-0.12 0.12 -0.12 0.12 -1 0C-0.12 -0.12 -0.12 -0.12 0 -1Z"/></symbol>
+<clipPath id="cakeClip"></clipPath>
+</defs>
+<g class="stand">
+<path d="M140 440 L140 446 A60 10 0 0 0 260 446 L260 440 Z" fill="url(#gold)"/>
+<ellipse cx="200" cy="440" rx="60" ry="10" fill="url(#plateTop)"/>
+<path d="M166 402 C184 414 190 426 187 440 L213 440 C210 426 216 414 234 402 Z" fill="url(#gold)"/>
+<path d="M22 376 L22 384 A178 31 0 0 0 378 384 L378 376 Z" fill="url(#gold)"/>
+<ellipse cx="200" cy="376" rx="178" ry="31" fill="url(#plateTop)"/>
+<ellipse cx="200" cy="376" rx="168" ry="27.5" fill="none" stroke="#e7c67c" stroke-width="1" opacity=".7"/>
+</g>
+<ellipse cx="200" cy="377" rx="156" ry="28" fill="#6d3468" opacity=".18"/>
+<g id="cakeLayers"></g>
+<g clip-path="url(#cakeClip)" aria-hidden="true"><g transform="skewX(-16)"><rect class="shine" x="-30" y="120" width="44" height="300" fill="url(#shineGrad)"/></g></g>
+<g class="tap-hint" aria-hidden="true">
+<ellipse class="tap-pulse" cx="200" cy="153" rx="46" ry="8" fill="#fff1c4"/>
+<ellipse class="tap-ring" cx="200" cy="153" rx="56" ry="9.6" fill="none" stroke="#f2d086" stroke-width="1.5" stroke-dasharray="2 5" stroke-linecap="round"/>
+<use class="tap-spark t1" href="#spark" x="144" y="102" width="12" height="12" fill="#f2d086"/>
+<use class="tap-spark t2" href="#spark" x="236" y="94" width="9" height="9" fill="#ffffff"/>
+<use class="tap-spark t3" href="#spark" x="192" y="78" width="15" height="15" fill="#ffd3e4"/>
+</g>
+<g id="candleLayer"></g>
+</svg>
+                    </div>
+                </div>
+                <div class="cake-glow" id="cakeGlow" aria-hidden="true"></div>
+            </div>
+        </section>
+
+        <section class="panel" id="panel" aria-label="Celebration controls">
+            <p class="instruction" id="instruction" aria-live="polite">Tap the top of the cake to begin ✨</p>
+
+            <div class="mic" id="micPanel" data-state="" hidden>
+                <div class="mic-row">
+                    <span class="mic-ring" aria-hidden="true">
+<span class="mic-core">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></svg>
+<span class="mic-slash"></span>
+                    </span>
+                    </span>
+                    <div class="mic-info">
+                        <p class="mic-status"><span class="mic-dot" aria-hidden="true"></span><span id="micStatus" role="status" aria-live="polite">Preparing microphone…</span></p>
+                        <div class="meter" aria-hidden="true"><span class="meter-fill" id="meterFill"></span><span class="meter-mark"></span></div>
+                        <div class="meter-legend" aria-hidden="true"><span>Quiet</span><span>Blow zone</span></div>
+                    </div>
+                </div>
+                <p class="mic-help" id="micHelp">When your browser asks, allow microphone access. Your audio stays on this device and nothing is recorded or sent.</p>
+                <button class="btn btn-ghost" id="blowBtn" type="button" aria-describedby="micHelp" disabled>Tap to Blow Out Candles</button>
+            </div>
+
+            <section class="card" id="card" aria-labelledby="cardTitle" hidden>
+                <h2 class="card-title" id="cardTitle"><span class="title-text">Happy Birthday, Rena!</span> <span class="emoji" role="img" aria-label="party popper and birthday cake">🎉🎂</span></h2>
+                <p class="card-msg">Make a wish, enjoy your special day, and keep shining! More boyz to cum wkwkwkwk. I hope you enjoy your day and receive all the happiness you deserve. Stay pretty, stay happy, and keep being yourself. Have fun and enjoy your day to the
+                    fullest! 💗🎂🎉</p>
+                <div class="card-actions" id="cardActions" hidden>
+                    <button class="btn btn-soft" id="playMusicBtn" type="button" aria-label="Play birthday music">🎵 Play Birthday Music</button>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <div id="fxLayer" class="layer" aria-hidden="true"></div>
+    <canvas id="fxCanvas" aria-hidden="true"></canvas>
+
+    <div class="dock" id="musicDock" role="group" aria-label="Birthday music controls" hidden>
+        <button class="icon-btn" id="musicToggle" type="button" aria-label="Play birthday music" data-state="paused">
+<svg class="i-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5.8v12.4a1 1 0 0 0 1.5.86l10-6.2a1 1 0 0 0 0-1.72l-10-6.2A1 1 0 0 0 8 5.8z" fill="currentColor"/></svg>
+<svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="6.5" y="5" width="4" height="14" rx="1.3" fill="currentColor"/><rect x="13.5" y="5" width="4" height="14" rx="1.3" fill="currentColor"/></svg>
+</button>
+        <button class="icon-btn" id="muteToggle" type="button" aria-label="Mute music" aria-pressed="false" data-state="on">
+<svg class="i-vol" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path d="M15.5 9a4.2 4.2 0 0 1 0 6M18.2 6.5a8 8 0 0 1 0 11"/></svg>
+<svg class="i-mute" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg>
+</button>
+        <input class="vol" id="volume" type="range" min="0" max="100" value="60" aria-label="Music volume" aria-valuetext="60%">
+    </div>
+
+    <p class="sr-only" id="sr" aria-live="polite"></p>
+
+    <svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+<defs>
+<radialGradient id="bal-pink" cx=".35" cy=".3" r=".78"><stop offset="0" stop-color="#ffe3ee"/><stop offset=".45" stop-color="#ff9ec7"/><stop offset="1" stop-color="#d9669b"/></radialGradient>
+<radialGradient id="bal-lav" cx=".35" cy=".3" r=".78"><stop offset="0" stop-color="#f1ebff"/><stop offset=".45" stop-color="#c6b2ff"/><stop offset="1" stop-color="#8f72e0"/></radialGradient>
+<radialGradient id="bal-gold" cx=".35" cy=".3" r=".78"><stop offset="0" stop-color="#fff6d8"/><stop offset=".45" stop-color="#f1cf78"/><stop offset="1" stop-color="#b8862f"/></radialGradient>
+<radialGradient id="bal-pearl" cx=".35" cy=".3" r=".78"><stop offset="0" stop-color="#ffffff"/><stop offset=".5" stop-color="#f4eef8"/><stop offset="1" stop-color="#cbbad8"/></radialGradient>
+<radialGradient id="bal-rose" cx=".35" cy=".3" r=".78"><stop offset="0" stop-color="#ffd0dc"/><stop offset=".45" stop-color="#f7a1b8"/><stop offset="1" stop-color="#c46a86"/></radialGradient>
+<radialGradient id="bal-violet" cx=".35" cy=".3" r=".78"><stop offset="0" stop-color="#e6d4ff"/><stop offset=".45" stop-color="#a78bfa"/><stop offset="1" stop-color="#6b4bc4"/></radialGradient>
+<pattern id="popStripe" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(-38)"><rect width="18" height="18" fill="#f78fbd"/><rect x="6" width="6" height="18" fill="#fff4f9"/><rect x="12" width="6" height="18" fill="#b49bff"/></pattern>
+<linearGradient id="popShade" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2a0f3a" stop-opacity=".35"/><stop offset=".45" stop-color="#ffffff" stop-opacity=".18"/><stop offset="1" stop-color="#2a0f3a" stop-opacity=".4"/></linearGradient>
+<linearGradient id="popGold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b8862f"/><stop offset=".5" stop-color="#f7df9f"/><stop offset="1" stop-color="#b8862f"/></linearGradient>
+</defs>
+</svg>
+
+    <script>
+        (() => {
+            "use strict";
+
+            const NS = "http://www.w3.org/2000/svg";
+            const XL = "http://www.w3.org/1999/xlink";
+            const $ = id => document.getElementById(id);
+
+            const app = $("app");
+            const svg = $("cakeSvg");
+            const hotspot = $("hotspot");
+            const instruction = $("instruction");
+            const micPanel = $("micPanel");
+            const micStatus = $("micStatus");
+            const micHelp = $("micHelp");
+            const meterFill = $("meterFill");
+            const blowBtn = $("blowBtn");
+            const card = $("card");
+            const cardActions = $("cardActions");
+            const playMusicBtn = $("playMusicBtn");
+            const dock = $("musicDock");
+            const musicToggle = $("musicToggle");
+            const muteToggle = $("muteToggle");
+            const volume = $("volume");
+            const fxLayer = $("fxLayer");
+            const balloonLayer = $("balloonLayer");
+            const cakeBox = $("cakeBox");
+            const cakeBounce = $("cakeBounce");
+            const cakeGlow = $("cakeGlow");
+            const sr = $("sr");
+
+            const mq = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
+            let reduced = !!(mq && mq.matches);
+
+            const rand = (a, b) => a + Math.random() * (b - a);
+            const pick = arr => arr[(Math.random() * arr.length) | 0];
+            const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+            const wait = ms => new Promise(r => setTimeout(r, ms));
+            const f1 = v => v.toFixed(1);
+
+            function seeded(seed) {
+                let s = seed >>> 0;
+                return () => {
+                    s = (s + 0x6d2b79f5) >>> 0;
+                    let t = s;
+                    t = Math.imul(t ^ (t >>> 15), t | 1);
+                    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+                    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+                };
+            }
+
+            function el(tag, attrs, parent) {
+                const n = document.createElementNS(NS, tag);
+                if (attrs)
+                    for (const k in attrs) n.setAttribute(k, attrs[k]);
+                if (parent) parent.appendChild(n);
+                return n;
+            }
+
+            function useSpark(parent, cx, cy, size, fill) {
+                const u = el("use", {
+                    href: "#spark",
+                    x: f1(cx - size / 2),
+                    y: f1(cy - size / 2),
+                    width: size,
+                    height: size,
+                    fill
+                }, parent);
+                u.setAttributeNS(XL, "xlink:href", "#spark");
+                return u;
+            }
+
+            const S = {
+                phase: "idle",
+                run: 0,
+                timers: new Set(),
+                actx: null,
+                unlocked: false,
+                sparkles: 0
+            };
+
+            function later(fn, ms) {
+                const run = S.run;
+                const id = setTimeout(() => {
+                    S.timers.delete(id);
+                    if (run === S.run) fn();
+                }, ms);
+                S.timers.add(id);
+                return id;
+            }
+
+            function setPhase(p) {
+                S.phase = p;
+                app.dataset.phase = p;
+            }
+
+            function announce(text) {
+                sr.textContent = "";
+                setTimeout(() => {
+                    sr.textContent = text;
+                }, 80);
+            }
+
+            const TIERS = [{
+                cx: 200,
+                top: 282,
+                bottom: 372,
+                rx: 150,
+                ry: 26,
+                side: "tierPink",
+                frost: "frostWhite",
+                base: 8,
+                drips: [
+                    [0.18, 18],
+                    [0.5, 28],
+                    [0.85, 16],
+                    [1.2, 22],
+                    [1.52, 10],
+                    [1.86, 24],
+                    [2.2, 14],
+                    [2.55, 30],
+                    [2.9, 20]
+                ]
+            }, {
+                cx: 200,
+                top: 212,
+                bottom: 282,
+                rx: 112,
+                ry: 19.5,
+                side: "tierLav",
+                frost: "frostPink",
+                base: 7,
+                drips: [
+                    [0.2, 14],
+                    [0.55, 24],
+                    [0.9, 18],
+                    [1.25, 26],
+                    [1.6, 16],
+                    [1.95, 22],
+                    [2.3, 28],
+                    [2.65, 15],
+                    [2.95, 20]
+                ]
+            }, {
+                cx: 200,
+                top: 152,
+                bottom: 212,
+                rx: 78,
+                ry: 13.5,
+                side: "tierCream",
+                frost: "frostLav",
+                base: 6,
+                drips: [
+                    [0.25, 12],
+                    [0.65, 20],
+                    [1.05, 14],
+                    [1.45, 22],
+                    [1.85, 16],
+                    [2.25, 24],
+                    [2.65, 13],
+                    [2.95, 18]
+                ]
+            }];
+            const DRIP_W = 0.1;
+
+            function thickness(t, a) {
+                let v = t.base;
+                for (const [c, len] of t.drips) {
+                    const u = (a - c) / DRIP_W;
+                    if (u > -1 && u < 1) v += len * Math.pow((1 + Math.cos(Math.PI * u)) / 2, 0.45);
+                }
+                return v;
+            }
+
+            function sidePath(t) {
+                return `M${t.cx - t.rx} ${t.top}L${t.cx - t.rx} ${t.bottom}A${t.rx} ${t.ry} 0 0 0 ${t.cx + t.rx} ${t.bottom}L${t.cx + t.rx} ${t.top}Z`;
+            }
+
+            function dripPath(t) {
+                let d = `M${t.cx - t.rx} ${t.top}A${t.rx} ${t.ry} 0 0 1 ${t.cx + t.rx} ${t.top}`;
+                const N = 150;
+                for (let i = 0; i <= N; i++) {
+                    const a = (Math.PI * i) / N;
+                    d += `L${(t.cx + t.rx * Math.cos(a)).toFixed(2)} ${(t.top + t.ry * Math.sin(a) + thickness(t, a)).toFixed(2)}`;
+                }
+                return d + "Z";
+            }
+
+            function rimPath(t, y, a) {
+                const yy = f1(y + t.ry * Math.sin(a));
+                return `M${f1(t.cx + t.rx * Math.cos(a))} ${yy}A${t.rx} ${t.ry} 0 0 1 ${f1(t.cx - t.rx * Math.cos(a))} ${yy}`;
+            }
+
+            function pearls(g, t, count, r, fill) {
+                const angles = [];
+                for (let i = 0; i < count; i++) angles.push(0.1 + ((Math.PI - 0.2) * i) / (count - 1));
+                angles.sort((p, q) => Math.sin(p) - Math.sin(q));
+                for (const a of angles) {
+                    const s = 0.82 + 0.18 * Math.sin(a);
+                    el("circle", {
+                        cx: f1(t.cx + t.rx * Math.cos(a)),
+                        cy: f1(t.bottom + t.ry * Math.sin(a) - r * 0.5),
+                        r: (r * s).toFixed(2),
+                        fill
+                    }, g);
+                }
+            }
+
+            function rosette(g, x, y, s, c) {
+                const r = el("g", {
+                    transform: `translate(${f1(x)} ${f1(y)}) scale(${s.toFixed(2)})`
+                }, g);
+                el("ellipse", {
+                    cx: 0,
+                    cy: 2,
+                    rx: 9.5,
+                    ry: 3.4,
+                    fill: "#5a2a5e",
+                    opacity: 0.16
+                }, r);
+                el("ellipse", {
+                    cx: 0,
+                    cy: 0,
+                    rx: 8,
+                    ry: 5.4,
+                    fill: c[0],
+                    stroke: c[3],
+                    "stroke-width": 0.6
+                }, r);
+                el("ellipse", {
+                    cx: 0.6,
+                    cy: -2.9,
+                    rx: 5.9,
+                    ry: 4.2,
+                    fill: c[1],
+                    stroke: c[3],
+                    "stroke-width": 0.5
+                }, r);
+                el("ellipse", {
+                    cx: -0.3,
+                    cy: -5.5,
+                    rx: 3.5,
+                    ry: 2.8,
+                    fill: c[2],
+                    stroke: c[3],
+                    "stroke-width": 0.45
+                }, r);
+                el("ellipse", {
+                    cx: 0.2,
+                    cy: -7.4,
+                    rx: 1.5,
+                    ry: 1.3,
+                    fill: c[2]
+                }, r);
+                el("ellipse", {
+                    cx: -2.4,
+                    cy: -3.8,
+                    rx: 1.7,
+                    ry: 0.9,
+                    fill: "#ffffff",
+                    opacity: 0.75
+                }, r);
+            }
+
+            function ledge(g, lower, upper, count, colors, beadFill, scale) {
+                const r = (lower.rx + upper.rx) / 2;
+                const rr = r * (lower.ry / lower.rx);
+                const items = [];
+                for (let i = 0; i < count; i++) items.push({
+                    u: -0.9 + (1.8 * i) / (count - 1),
+                    kind: 0
+                });
+                for (let i = 0; i < count - 1; i++) items.push({
+                    u: -0.9 + (1.8 * (i + 0.5)) / (count - 1),
+                    kind: 1
+                });
+                items.forEach(it => {
+                    it.a = Math.acos(it.u);
+                });
+                items.sort((p, q) => Math.sin(p.a) - Math.sin(q.a));
+                for (const it of items) {
+                    const x = lower.cx + r * Math.cos(it.a);
+                    const y = lower.top + rr * Math.sin(it.a);
+                    const s = (0.78 + 0.22 * Math.sin(it.a)) * scale;
+                    if (it.kind === 0) rosette(g, x, y, s, colors);
+                    else el("circle", {
+                        cx: f1(x),
+                        cy: f1(y - 2),
+                        r: (2.2 * s).toFixed(2),
+                        fill: beadFill
+                    }, g);
+                }
+            }
+
+            function sprinkles(g, t, n, rnd, colors, offset, lift) {
+                for (let i = 0; i < n; i++) {
+                    const u = (rnd() * 2 - 1) * 0.86;
+                    const x = t.cx + u * t.rx;
+                    const s = Math.sqrt(1 - u * u);
+                    const y0 = t.top + t.ry * s + offset;
+                    const y1 = t.bottom + t.ry * s - lift;
+                    if (y1 <= y0) continue;
+                    const y = y0 + rnd() * (y1 - y0);
+                    const col = colors[(rnd() * colors.length) | 0];
+                    if (t === TIERS[2]) {
+                        el("circle", {
+                            cx: f1(x),
+                            cy: f1(y),
+                            r: (0.9 + 0.3 * s).toFixed(2),
+                            fill: col
+                        }, g);
+                    } else {
+                        const ang = rnd() * Math.PI;
+                        const len = 2.4 * (0.6 + 0.4 * s);
+                        el("line", {
+                            x1: f1(x - Math.cos(ang) * len),
+                            y1: f1(y - Math.sin(ang) * len),
+                            x2: f1(x + Math.cos(ang) * len),
+                            y2: f1(y + Math.sin(ang) * len),
+                            stroke: col,
+                            "stroke-width": 1.8,
+                            "stroke-linecap": "round"
+                        }, g);
+                    }
+                }
+            }
+
+            function buildCake() {
+                const layers = $("cakeLayers");
+                const clip = $("cakeClip");
+                const rnd = seeded(20260925);
+                TIERS.forEach((t, k) => {
+                    el("path", {
+                        d: sidePath(t)
+                    }, clip);
+                    el("ellipse", {
+                        cx: t.cx,
+                        cy: t.top,
+                        rx: t.rx,
+                        ry: t.ry
+                    }, clip);
+                    const g = el("g", {
+                        class: `tier tier-${k}`
+                    }, layers);
+                    el("path", {
+                        d: sidePath(t),
+                        fill: `url(#${t.side})`
+                    }, g);
+                    if (k === 0) {
+                        const shadow = el("text", {
+                            class: "cake-name",
+                            fill: "#a2476f",
+                            opacity: 0.35,
+                            "text-anchor": "middle",
+                            transform: "translate(0 1.6)"
+                        }, g);
+                        const sp = el("textPath", {
+                            href: "#nameArc",
+                            startOffset: "50%"
+                        }, shadow);
+                        sp.setAttributeNS(XL, "xlink:href", "#nameArc");
+                        sp.textContent = "Rena";
+                        const name = el("text", {
+                            class: "cake-name",
+                            fill: "url(#nameGold)",
+                            "text-anchor": "middle"
+                        }, g);
+                        const tp = el("textPath", {
+                            href: "#nameArc",
+                            startOffset: "50%"
+                        }, name);
+                        tp.setAttributeNS(XL, "xlink:href", "#nameArc");
+                        tp.textContent = "Rena";
+                        useSpark(g, 122, 360, 10, "#f2d086");
+                        useSpark(g, 278, 360, 10, "#f2d086");
+                        useSpark(g, 90, 352, 6, "#fff4d9");
+                        useSpark(g, 310, 352, 6, "#fff4d9");
+                    }
+                    if (k === 1) sprinkles(g, t, 30, rnd, ["#ffffff", "#f2d086", "#ffb6d3", "#fff3d6"], 40, 9);
+                    if (k === 2) {
+                        sprinkles(g, t, 12, rnd, ["#e3b95a", "#f2d086", "#ffb6d3"], 30, 14);
+                        el("path", {
+                            d: rimPath(t, t.bottom - 9, 0.02),
+                            fill: "none",
+                            stroke: "url(#gold)",
+                            "stroke-width": 2.4,
+                            "stroke-linecap": "round"
+                        }, g);
+                    }
+                    el("path", {
+                        d: dripPath(t),
+                        fill: `url(#${t.frost})`
+                    }, g);
+                    el("path", {
+                        d: rimPath(t, t.top, 0.28),
+                        fill: "none",
+                        stroke: "#ffffff",
+                        "stroke-width": 1.3,
+                        "stroke-linecap": "round",
+                        opacity: 0.6
+                    }, g);
+                    const sc = Math.sqrt(t.rx / 150);
+                    for (const [c, len] of t.drips) {
+                        const x = t.cx + t.rx * Math.cos(c);
+                        const y = t.top + t.ry * Math.sin(c) + t.base + len - 5;
+                        const f = sc * (0.6 + 0.4 * Math.sin(c));
+                        el("ellipse", {
+                            cx: f1(x - 1.6 * f),
+                            cy: f1(y),
+                            rx: (1.2 * f).toFixed(2),
+                            ry: (2.4 * f).toFixed(2),
+                            fill: "#ffffff",
+                            opacity: 0.55
+                        }, g);
+                    }
+                    pearls(g, t, [24, 20, 15][k], [3.3, 2.7, 2.2][k], k === 1 ? "url(#goldBead)" : "url(#pearl)");
+                    if (k === 1) ledge(layers, TIERS[0], t, 9, ["#f7a3c7", "#ffc2da", "#ffe0ec", "rgba(196,90,140,.35)"], "url(#goldBead)", 1);
+                    if (k === 2) ledge(layers, TIERS[1], t, 7, ["#ffc2da", "#ffe0ec", "#ffffff", "rgba(196,90,140,.35)"], "url(#pearl)", 0.82);
+                });
+            }
+
+            const CANDLE_SPOTS = [{
+                x: 164,
+                y: 146,
+                stripe: "stripeLav"
+            }, {
+                x: 236,
+                y: 146,
+                stripe: "stripeGold"
+            }, {
+                x: 142,
+                y: 155,
+                stripe: "stripePink"
+            }, {
+                x: 258,
+                y: 155,
+                stripe: "stripePink"
+            }, {
+                x: 200,
+                y: 160,
+                stripe: "stripeGold"
+            }];
+            const candles = [];
+
+            function buildCandles() {
+                const layer = $("candleLayer");
+                const defs = svg.querySelector("defs");
+                CANDLE_SPOTS.forEach((p, i) => {
+                    const cp = el("clipPath", {
+                        id: `candleClip${i}`
+                    }, defs);
+                    el("rect", {
+                        x: p.x - 40,
+                        y: 0,
+                        width: 80,
+                        height: p.y + 0.6
+                    }, cp);
+                    const g = el("g", {
+                        class: "candle",
+                        style: `--i:${i}`
+                    }, layer);
+                    el("ellipse", {
+                        class: "c-shadow",
+                        cx: p.x + 1.5,
+                        cy: p.y + 0.8,
+                        rx: 8,
+                        ry: 2.2,
+                        fill: "#6a2f66"
+                    }, g);
+                    const clipped = el("g", {
+                        "clip-path": `url(#candleClip${i})`
+                    }, g);
+                    const rise = el("g", {
+                        class: "rise"
+                    }, clipped);
+                    const c = el("g", {
+                        transform: `translate(${p.x} ${p.y})`
+                    }, rise);
+                    el("rect", {
+                        x: -4.6,
+                        y: -44,
+                        width: 9.2,
+                        height: 44,
+                        rx: 2.6,
+                        fill: `url(#${p.stripe})`
+                    }, c);
+                    el("rect", {
+                        x: -4.6,
+                        y: -44,
+                        width: 9.2,
+                        height: 44,
+                        rx: 2.6,
+                        fill: "url(#candleShade)"
+                    }, c);
+                    el("ellipse", {
+                        cx: 0,
+                        cy: -44,
+                        rx: 4.6,
+                        ry: 1.7,
+                        fill: "#fff7fb"
+                    }, c);
+                    el("path", {
+                        d: "M0 -44 Q1 -47.6 0 -51",
+                        fill: "none",
+                        stroke: "#3b2733",
+                        "stroke-width": 1.3,
+                        "stroke-linecap": "round"
+                    }, c);
+                    const ember = el("circle", {
+                        class: "ember",
+                        cx: 0,
+                        cy: -51,
+                        r: 1.5,
+                        fill: "#ffcf7a"
+                    }, c);
+                    el("circle", {
+                        class: "flame-glow",
+                        cx: 0,
+                        cy: -62,
+                        r: 24,
+                        fill: "url(#flameGlow)"
+                    }, c);
+                    const holder = el("g", {
+                        transform: "translate(0 -47.5)"
+                    }, c);
+                    const flame = el("g", {
+                        class: "flame"
+                    }, holder);
+                    const lean = el("g", {
+                        class: "flame-lean"
+                    }, flame);
+                    const flick = el("g", {
+                        class: "flame-flicker"
+                    }, lean);
+                    el("path", {
+                        d: "M0 0C-6.6 -2.6 -8.2 -10.6 -3.4 -18.6C-1.8 -21.6 -0.6 -25 0 -29.5C1.6 -24.4 7.8 -16.6 7.3 -8.6C7 -3 3.9 0 0 0Z",
+                        fill: "url(#flameOuter)"
+                    }, flick);
+                    el("ellipse", {
+                        cx: 0,
+                        cy: -2.6,
+                        rx: 2.3,
+                        ry: 3,
+                        fill: "#9cc1ff",
+                        opacity: 0.55
+                    }, flick);
+                    el("path", {
+                        d: "M0 -1.2C-3 -2.6 -3.7 -7 -1.3 -11.6C-0.5 -13.2 0 -14.8 0 -16.4C1 -13.2 3.7 -9.2 3.5 -5.6C3.3 -2.6 2 -1.2 0 -1.2Z",
+                        fill: "url(#flameInner)"
+                    }, flick);
+                    candles.push({
+                        g,
+                        ember,
+                        x: p.x
+                    });
+                });
+            }
+
+            const BG = {
+                c: $("bgCanvas"),
+                g: null,
+                amb: [],
+                extra: [],
+                act: 1,
+                target: 1,
+                rate: 0,
+                acc: 0
+            };
+            const FX = {
+                c: $("fxCanvas"),
+                g: null,
+                parts: [],
+                emitters: [],
+                dirty: false
+            };
+            BG.g = BG.c.getContext ? BG.c.getContext("2d") : null;
+            FX.g = FX.c.getContext ? FX.c.getContext("2d") : null;
+            let W = 0,
+                H = 0,
+                DPR = 1;
+
+            const COLORS = ["#ffb3d1", "#ff8fbf", "#f9c9de", "#cdb8ff", "#a88bff", "#f3d27a", "#e2b24e", "#ffffff", "#ffe1ec"];
+
+            function glowSprite(r, g, b) {
+                const c = document.createElement("canvas");
+                c.width = c.height = 64;
+                const x = c.getContext("2d");
+                if (!x) return c;
+                const gr = x.createRadialGradient(32, 32, 0, 32, 32, 32);
+                gr.addColorStop(0, `rgba(${r},${g},${b},1)`);
+                gr.addColorStop(0.25, `rgba(${r},${g},${b},.55)`);
+                gr.addColorStop(1, `rgba(${r},${g},${b},0)`);
+                x.fillStyle = gr;
+                x.fillRect(0, 0, 64, 64);
+                return c;
+            }
+
+            function starSprite(r, g, b) {
+                const c = document.createElement("canvas");
+                c.width = c.height = 64;
+                const x = c.getContext("2d");
+                if (!x) return c;
+                const gr = x.createRadialGradient(32, 32, 0, 32, 32, 22);
+                gr.addColorStop(0, `rgba(${r},${g},${b},.5)`);
+                gr.addColorStop(1, `rgba(${r},${g},${b},0)`);
+                x.fillStyle = gr;
+                x.fillRect(0, 0, 64, 64);
+                x.fillStyle = `rgb(${r},${g},${b})`;
+                x.beginPath();
+                x.moveTo(32, 6);
+                x.quadraticCurveTo(35, 29, 58, 32);
+                x.quadraticCurveTo(35, 35, 32, 58);
+                x.quadraticCurveTo(29, 35, 6, 32);
+                x.quadraticCurveTo(29, 29, 32, 6);
+                x.fill();
+                return c;
+            }
+
+            const SPR = {
+                glow: [glowSprite(255, 190, 222), glowSprite(205, 184, 255), glowSprite(255, 222, 150), glowSprite(255, 255, 255)],
+                star: [starSprite(255, 226, 160), starSprite(255, 255, 255), starSprite(255, 200, 228)]
+            };
+
+            function newAmb(anywhere) {
+                return {
+                    x0: Math.random() * W,
+                    y: anywhere ? Math.random() * H : H + rand(20, 60),
+                    s: rand(4, 16),
+                    v: rand(8, 26),
+                    amp: rand(6, 26),
+                    ph: rand(0, 6.28),
+                    tw: rand(0.6, 2.2),
+                    a: rand(0.16, 0.5),
+                    spr: pick(SPR.glow)
+                };
+            }
+
+            function initAmbient() {
+                const n = reduced ? 16 : (W < 640 ? 30 : 52);
+                BG.amb = [];
+                for (let i = 0; i < n; i++) BG.amb.push(newAmb(true));
+            }
+
+            function resize() {
+                DPR = Math.min(2, window.devicePixelRatio || 1);
+                const nw = window.innerWidth,
+                    nh = window.innerHeight;
+                const sx = W ? nw / W : 1;
+                W = nw;
+                H = nh;
+                for (const c of[BG.c, FX.c]) {
+                    c.width = Math.round(W * DPR);
+                    c.height = Math.round(H * DPR);
+                }
+                FX.dirty = true;
+                if (!BG.amb.length) initAmbient();
+                else BG.amb.forEach(p => {
+                    p.x0 *= sx;
+                    if (p.y > H + 60) p.y = Math.random() * H;
+                });
+            }
+
+            function spawnExtras(dt) {
+                if (!BG.rate) {
+                    BG.acc = 0;
+                    return;
+                }
+                BG.acc += dt * BG.rate;
+                while (BG.acc >= 1) {
+                    BG.acc -= 1;
+                    if (BG.extra.length > 90) {
+                        BG.acc = 0;
+                        break;
+                    }
+                    if (Math.random() < 0.45) {
+                        BG.extra.push({
+                            star: true,
+                            x: Math.random() * W,
+                            y: Math.random() * H * 0.85,
+                            vx: 0,
+                            vy: -6,
+                            s: rand(7, 18),
+                            a: 0.9,
+                            life: 0,
+                            max: rand(1, 2.4),
+                            spr: pick(SPR.star)
+                        });
+                    } else {
+                        BG.extra.push({
+                            star: false,
+                            x: Math.random() * W,
+                            y: H + 10,
+                            vx: rand(-10, 10),
+                            vy: -rand(60, 180),
+                            s: rand(5, 14),
+                            a: 0.7,
+                            life: 0,
+                            max: rand(3, 6),
+                            spr: pick(SPR.glow)
+                        });
+                    }
+                }
+            }
+
+            function drawBG(dt, t) {
+                const g = BG.g;
+                if (!g) return;
+                BG.act += (BG.target - BG.act) * Math.min(1, dt * 1.5);
+                spawnExtras(dt);
+                g.setTransform(DPR, 0, 0, DPR, 0, 0);
+                g.clearRect(0, 0, W, H);
+                g.globalCompositeOperation = "lighter";
+                for (const p of BG.amb) {
+                    p.y -= p.v * dt * BG.act;
+                    if (p.y < -30) Object.assign(p, newAmb(false));
+                    const x = p.x0 + Math.sin(t * 0.4 + p.ph) * p.amp;
+                    g.globalAlpha = p.a * (0.55 + 0.45 * Math.sin(t * p.tw + p.ph)) * (0.8 + 0.2 * Math.min(2, BG.act));
+                    g.drawImage(p.spr, x - p.s, p.y - p.s, p.s * 2, p.s * 2);
+                }
+                const E = BG.extra;
+                for (let i = E.length - 1; i >= 0; i--) {
+                    const p = E[i];
+                    p.life += dt;
+                    const k = p.life / p.max;
+                    if (k >= 1) {
+                        E[i] = E[E.length - 1];
+                        E.pop();
+                        continue;
+                    }
+                    p.x += p.vx * dt;
+                    p.y += p.vy * dt;
+                    const s = p.star ? p.s * (0.5 + 0.5 * Math.sin(Math.PI * k)) : p.s;
+                    g.globalAlpha = Math.sin(Math.PI * k) * p.a;
+                    g.drawImage(p.spr, p.x - s, p.y - s, s * 2, s * 2);
+                }
+                g.globalAlpha = 1;
+                g.globalCompositeOperation = "source-over";
+            }
+
+            function confetti(x, y, vx, vy, o) {
+                const cap = reduced ? 140 : (W < 640 ? 260 : 420);
+                if (FX.parts.length >= cap) return;
+                const r = Math.random();
+                const rib = (o && o.rib) || 0.14;
+                const shape = r < rib ? 2 : (r < rib + 0.28 ? 1 : 0);
+                FX.parts.push({
+                    k: 0,
+                    x,
+                    y,
+                    vx,
+                    vy,
+                    shape,
+                    c: pick(COLORS),
+                    w: shape === 2 ? rand(14, 26) : rand(6, 12),
+                    h: shape === 2 ? 2.2 : rand(4, 7.5),
+                    rot: rand(0, 6.28),
+                    vr: rand(-1, 1) * (reduced ? 1.5 : 11),
+                    fp: rand(0, 6.28),
+                    fs: reduced ? 1.5 : rand(5, 12),
+                    sw: reduced ? 8 : rand(18, 46),
+                    ws: rand(1.4, 3.2),
+                    drag: 1.7,
+                    gr: reduced ? 200 : 420,
+                    life: 0,
+                    max: rand(7, 10)
+                });
+            }
+
+            function burst(x, y, ang, spread, n, speed, o) {
+                for (let i = 0; i < n; i++) {
+                    const a = ang + (Math.random() - 0.5) * spread;
+                    const v = speed * rand(0.55, 1.15);
+                    confetti(x, y, Math.cos(a) * v, Math.sin(a) * v, o);
+                }
+            }
+
+            function sparks(x, y, n) {
+                if (!FX.g) return;
+                for (let i = 0; i < n; i++) {
+                    FX.parts.push({
+                        k: 1,
+                        x,
+                        y,
+                        vx: rand(-90, 90),
+                        vy: rand(-170, -40),
+                        drag: 2.2,
+                        gr: 240,
+                        life: 0,
+                        max: rand(0.45, 0.9),
+                        s: rand(3, 7),
+                        spr: pick([SPR.glow[2], SPR.glow[3], SPR.glow[0]])
+                    });
+                }
+            }
+
+            function runEmitters(dt) {
+                for (let i = FX.emitters.length - 1; i >= 0; i--) {
+                    const e = FX.emitters[i];
+                    e.t += dt;
+                    if (e.t > e.dur) {
+                        FX.emitters.splice(i, 1);
+                        continue;
+                    }
+                    e.acc += dt * e.rate;
+                    while (e.acc >= 1) {
+                        e.acc -= 1;
+                        confetti(rand(0, W), rand(-40, -10), rand(-40, 40), rand(40, 160));
+                    }
+                }
+            }
+
+            function drawFX(dt) {
+                const g = FX.g;
+                if (!g) return;
+                runEmitters(dt);
+                const P = FX.parts;
+                if (!P.length) {
+                    if (FX.dirty) {
+                        g.setTransform(1, 0, 0, 1, 0, 0);
+                        g.clearRect(0, 0, FX.c.width, FX.c.height);
+                        FX.dirty = false;
+                    }
+                    return;
+                }
+                FX.dirty = true;
+                g.setTransform(1, 0, 0, 1, 0, 0);
+                g.clearRect(0, 0, FX.c.width, FX.c.height);
+                for (let i = P.length - 1; i >= 0; i--) {
+                    const p = P[i];
+                    p.life += dt;
+                    p.vx -= p.vx * p.drag * dt;
+                    p.vy -= p.vy * p.drag * dt;
+                    p.vy += p.gr * dt;
+                    p.x += (p.k === 0 ? p.vx + Math.sin(p.life * p.ws + p.fp) * p.sw : p.vx) * dt;
+                    p.y += p.vy * dt;
+                    if (p.life >= p.max || p.y > H + 60 || p.x < -140 || p.x > W + 140) {
+                        P[i] = P[P.length - 1];
+                        P.pop();
+                        continue;
+                    }
+                    if (p.k === 1) {
+                        g.globalCompositeOperation = "lighter";
+                        g.globalAlpha = 1 - p.life / p.max;
+                        g.setTransform(DPR, 0, 0, DPR, 0, 0);
+                        g.drawImage(p.spr, p.x - p.s, p.y - p.s, p.s * 2, p.s * 2);
+                        g.globalCompositeOperation = "source-over";
+                        continue;
+                    }
+                    p.rot += p.vr * dt;
+                    const fl = Math.cos(p.life * p.fs + p.fp);
+                    const cs = Math.cos(p.rot),
+                        sn = Math.sin(p.rot);
+                    g.globalAlpha = Math.min(1, (p.max - p.life) / 0.8);
+                    g.setTransform(cs * DPR, sn * DPR, -sn * fl * DPR, cs * fl * DPR, p.x * DPR, p.y * DPR);
+                    if (p.shape === 0) {
+                        g.fillStyle = p.c;
+                        g.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+                    } else if (p.shape === 1) {
+                        g.fillStyle = p.c;
+                        g.beginPath();
+                        g.arc(0, 0, p.h * 0.7, 0, 6.2832);
+                        g.fill();
+                    } else {
+                        const a = 4 * Math.sin(p.life * 7 + p.fp);
+                        g.strokeStyle = p.c;
+                        g.lineWidth = p.h;
+                        g.lineCap = "round";
+                        g.beginPath();
+                        g.moveTo(-p.w / 2, 0);
+                        g.quadraticCurveTo(-p.w / 4, a, 0, 0);
+                        g.quadraticCurveTo(p.w / 4, -a, p.w / 2, 0);
+                        g.stroke();
+                    }
+                }
+                g.globalAlpha = 1;
+            }
+
+            function sideBursts(scale) {
+                const n = Math.round((reduced ? 14 : (W < 640 ? 34 : 60)) * scale);
+                const v = Math.max(520, W * 0.66) * (reduced ? 0.6 : 1);
+                burst(-6, H * 0.6, -Math.PI * 0.2, 0.75, n, v, {
+                    rib: 0.2
+                });
+                burst(W + 6, H * 0.6, -Math.PI * 0.8, 0.75, n, v, {
+                    rib: 0.2
+                });
+            }
+
+            const POPPER_SVG = '<svg viewBox="0 0 60 92" aria-hidden="true" focusable="false"><path d="M30 90L5 16Q30 6 55 16Z" fill="url(#popStripe)"/><path d="M30 90L5 16Q30 6 55 16Z" fill="url(#popShade)"/><ellipse cx="30" cy="15" rx="25" ry="6.5" fill="#3a1d52"/><ellipse cx="30" cy="15" rx="25" ry="6.5" fill="none" stroke="url(#popGold)" stroke-width="2.4"/><path d="M25.5 86Q30 95 34.5 86Z" fill="#d9a94a"/></svg>';
+
+            function poppers() {
+                ["left", "right"].forEach(side => {
+                    const p = document.createElement("div");
+                    p.className = `popper ${side}`;
+                    p.innerHTML = `<div class="popper-rot"><div class="popper-body"><i class="mouth"></i>${POPPER_SVG}</div></div>`;
+                    fxLayer.appendChild(p);
+                    const body = p.querySelector(".popper-body");
+                    const mouth = p.querySelector(".mouth");
+                    const fire = () => {
+                        body.classList.remove("pop");
+                        void body.offsetWidth;
+                        body.classList.add("pop");
+                        const r = mouth.getBoundingClientRect();
+                        const ang = side === "left" ? -Math.PI * 0.32 : -Math.PI * 0.68;
+                        const n = reduced ? 12 : (W < 640 ? 30 : 46);
+                        burst(r.left + r.width / 2, r.top + r.height / 2, ang, 0.62, n, Math.max(560, H * 1.05) * (reduced ? 0.6 : 1), {
+                            rib: 0.4
+                        });
+                    };
+                    later(fire, 420);
+                    later(fire, 1500);
+                    if (!reduced) later(fire, 2600);
+                    later(() => p.classList.add("leave"), 3800);
+                    later(() => p.remove(), 4600);
+                });
+            }
+
+            const BALLOON_COLORS = ["pink", "lav", "gold", "pearl", "rose", "violet"];
+
+            function balloonSVG(c) {
+                return `<svg viewBox="0 0 80 172" aria-hidden="true" focusable="false"><path d="M40 101C33 116 47 128 40 142S34 160 41 170" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.2"/><path d="M40 4C62 4 76 22 76 45C76 70 57 90 43 95L37 95C23 90 4 70 4 45C4 22 18 4 40 4Z" fill="url(#bal-${c})"/><path d="M36.5 94.5L43.5 94.5L42 101L38 101Z" fill="url(#bal-${c})"/><ellipse cx="26" cy="29" rx="7" ry="13" transform="rotate(-24 26 29)" fill="#ffffff" opacity=".42"/><ellipse cx="31" cy="52" rx="2.2" ry="3.4" fill="#ffffff" opacity=".22"/></svg>`;
+            }
+
+            function spawnBalloon(i, n) {
+                const b = document.createElement("div");
+                b.className = "balloon";
+                const size = (W < 640 ? 46 : 58) + Math.random() * 28;
+                const left = clamp(((i + 0.15 + Math.random() * 0.7) / n) * 100, 1, 93);
+                const dur = (reduced ? 15 : 9) + Math.random() * 5;
+                b.style.cssText = `left:${left.toFixed(1)}%;--size:${size.toFixed(0)}px;--dur:${dur.toFixed(1)}s;--sway:${rand(6, 18).toFixed(1)}px;--tilt:${rand(3, 9).toFixed(1)}deg;--sd:${rand(2.4, 4.2).toFixed(1)}s`;
+                b.innerHTML = `<div class="balloon-sway">${balloonSVG(BALLOON_COLORS[i % BALLOON_COLORS.length])}</div>`;
+                b.addEventListener("animationend", e => {
+                    if (e.target === b) b.remove();
+                });
+                balloonLayer.appendChild(b);
+            }
+
+            function balloons() {
+                const n = reduced ? 5 : (W < 640 ? 9 : 14);
+                const order = Array.from({
+                    length: n
+                }, (_, i) => i).sort(() => Math.random() - 0.5);
+                order.forEach((slot, k) => later(() => spawnBalloon(slot, n), 150 + k * 260 + Math.random() * 180));
+            }
+
+            const SPARK_SVG = '<svg viewBox="-1 -1 2 2" aria-hidden="true" focusable="false"><path d="M0 -1C0.12 -0.12 0.12 -0.12 1 0C0.12 0.12 0.12 0.12 0 1C-0.12 0.12 -0.12 0.12 -1 0C-0.12 -0.12 -0.12 -0.12 0 -1Z"/></svg>';
+
+            function spawnSparkle() {
+                if (S.sparkles > 26) return;
+                const r = cakeBox.getBoundingClientRect();
+                const a = Math.random() * Math.PI * 2;
+                const k = rand(0.5, 0.8);
+                const x = clamp(r.left + r.width / 2 + Math.cos(a) * r.width * k * 1.05, 8, W - 8);
+                const y = clamp(r.top + r.height * 0.48 + Math.sin(a) * r.height * k * 0.64, 8, H - 8);
+                const s = document.createElement("span");
+                s.className = "sparkle";
+                s.style.cssText = `left:${x.toFixed(1)}px;top:${y.toFixed(1)}px;--s:${rand(10, 26).toFixed(1)}px;--d:${rand(1.1, 1.9).toFixed(2)}s;color:${pick(["#f2d086", "#ffffff", "#ffd3e4", "#e6dbff"])}`;
+                s.innerHTML = SPARK_SVG;
+                s.addEventListener("animationend", () => {
+                    s.remove();
+                    S.sparkles = Math.max(0, S.sparkles - 1);
+                });
+                S.sparkles++;
+                fxLayer.appendChild(s);
+            }
+
+            function sparkleTick() {
+                if (S.phase !== "celebrate" && S.phase !== "final") return;
+                const lively = S.phase === "celebrate";
+                spawnSparkle();
+                if (lively && !reduced) spawnSparkle();
+                later(sparkleTick, lively ? (reduced ? 520 : 170) : (reduced ? 1400 : 560));
+            }
+
+            function smoke(x, y) {
+                const n = reduced ? 3 : 7;
+                for (let i = 0; i < n; i++) {
+                    const s = document.createElement("span");
+                    s.className = "smoke";
+                    s.style.cssText = `left:${x.toFixed(1)}px;top:${y.toFixed(1)}px;--s:${rand(10, 20).toFixed(1)}px;--dx:${rand(-18, 28).toFixed(1)}px;--dy:${rand(-150, -95).toFixed(1)}px;--dur:${rand(2.2, 3.4).toFixed(2)}s;--delay:${(i * 0.13).toFixed(2)}s`;
+                    s.addEventListener("animationend", () => s.remove());
+                    fxLayer.appendChild(s);
+                }
+                const w = document.createElement("span");
+                w.className = "wisp";
+                w.style.cssText = `left:${x.toFixed(1)}px;top:${y.toFixed(1)}px`;
+                w.innerHTML = '<svg viewBox="0 0 16 56" aria-hidden="true" focusable="false"><path pathLength="100" d="M8 55C2 45 14 38 8 28S3 10 10 1"/></svg>';
+                w.addEventListener("animationend", e => {
+                    if (e.target === w) w.remove();
+                });
+                fxLayer.appendChild(w);
+            }
+
+            function flash() {
+                cakeGlow.classList.remove("flash");
+                void cakeGlow.offsetWidth;
+                cakeGlow.classList.add("flash");
+            }
+
+            function tweenWind(from, to, ms) {
+                const run = S.run;
+                const t0 = performance.now();
+                const step = now => {
+                    if (run !== S.run) return;
+                    const k = clamp((now - t0) / ms, 0, 1);
+                    const e = k * k * (3 - 2 * k);
+                    svg.style.setProperty("--wind", (from + (to - from) * e).toFixed(3));
+                    if (k < 1) requestAnimationFrame(step);
+                };
+                requestAnimationFrame(step);
+            }
+
+            function ensureAudio() {
+                const AC = window.AudioContext || window.webkitAudioContext;
+                if (!S.actx && AC) {
+                    try {
+                        S.actx = new AC();
+                    } catch (e) {
+                        S.actx = null;
+                    }
+                }
+                const ctx = S.actx;
+                if (!ctx) return;
+                if (ctx.state !== "running") {
+                    try {
+                        const p = ctx.resume();
+                        if (p && p.catch) p.catch(() => {});
+                    } catch (e) {}
+                }
+                if (!S.unlocked) {
+                    try {
+                        const b = ctx.createBuffer(1, 1, ctx.sampleRate);
+                        const s = ctx.createBufferSource();
+                        s.buffer = b;
+                        s.connect(ctx.destination);
+                        s.start(0);
+                        S.unlocked = true;
+                    } catch (e) {}
+                }
+            }
+
+            function resumeCtx() {
+                const ctx = S.actx;
+                if (!ctx || ctx.state === "running") return Promise.resolve();
+                let p = null;
+                try {
+                    p = ctx.resume();
+                } catch (e) {
+                    p = null;
+                }
+                return Promise.race([Promise.resolve(p).catch(() => {}), wait(900)]);
+            }
+
+            const M = {
+                stream: null,
+                src: null,
+                an: null,
+                td: null,
+                fd: null,
+                bytes: null,
+                ready: false,
+                listening: false,
+                state: "",
+                floor: 0.01,
+                calib: 0,
+                cs: 0,
+                cn: 0,
+                blow: 0,
+                lvl: 0,
+                wind: 0,
+                listenT: 0,
+                hinted: false
+            };
+            const NEED = 0.2;
+
+            function setMic(state, text) {
+                if (M.state === state && micStatus.textContent === text) return;
+                M.state = state;
+                micPanel.dataset.state = state;
+                micStatus.textContent = text;
+            }
+
+            function showMicPanel() {
+                micPanel.hidden = false;
+                blowBtn.disabled = true;
+                blowBtn.classList.remove("btn-primary");
+                blowBtn.classList.add("btn-ghost");
+                meterFill.style.transform = "scaleX(0)";
+                micPanel.style.setProperty("--p", "0");
+                micHelp.textContent = "When your browser asks, allow microphone access. Your audio stays on this device and nothing is recorded or sent.";
+            }
+
+            function micFail(kind) {
+                M.ready = false;
+                M.listening = false;
+                if (kind === "denied") {
+                    setMic("denied", "Microphone access is blocked");
+                    micHelp.textContent = "Use the button below to blow out the candles. To use your breath instead, allow microphone access for this page in your browser settings, then reload the page.";
+                } else {
+                    setMic("unavailable", "Microphone not available");
+                    micHelp.textContent = "This browser or device can't use a microphone here. Use the button below to blow out the candles.";
+                }
+                blowBtn.classList.remove("btn-ghost");
+                blowBtn.classList.add("btn-primary");
+            }
+
+            function stopMic() {
+                M.listening = false;
+                M.ready = false;
+                if (M.src) {
+                    try {
+                        M.src.disconnect();
+                    } catch (e) {}
+                }
+                if (M.stream) M.stream.getTracks().forEach(t => t.stop());
+                M.stream = null;
+                M.src = null;
+                M.an = null;
+            }
+
+            async function startMic(run) {
+                const md = navigator.mediaDevices;
+                if (!md || !md.getUserMedia || !S.actx) {
+                    micFail("unavailable");
+                    return;
+                }
+                setMic("pending", "Waiting for microphone permission…");
+                let stream;
+                try {
+                    stream = await md.getUserMedia({
+                        audio: {
+                            echoCancellation: false,
+                            noiseSuppression: false,
+                            autoGainControl: false
+                        },
+                        video: false
+                    });
+                } catch (err) {
+                    if (run !== S.run) return;
+                    const n = err && err.name;
+                    micFail(n === "NotAllowedError" || n === "SecurityError" || n === "PermissionDeniedError" ? "denied" : "unavailable");
+                    return;
+                }
+                if (run !== S.run || (S.phase !== "candles" && S.phase !== "wish")) {
+                    stream.getTracks().forEach(t => t.stop());
+                    return;
+                }
+                try {
+                    await resumeCtx();
+                    M.stream = stream;
+                    M.src = S.actx.createMediaStreamSource(stream);
+                    M.an = S.actx.createAnalyser();
+                    M.an.fftSize = 2048;
+                    M.an.smoothingTimeConstant = 0.2;
+                    M.src.connect(M.an);
+                    M.td = new Float32Array(M.an.fftSize);
+                    M.fd = new Float32Array(M.an.frequencyBinCount);
+                    M.bytes = M.an.getFloatTimeDomainData ? null : new Uint8Array(M.an.fftSize);
+                    M.ready = true;
+                } catch (e) {
+                    stopMic();
+                    micFail("unavailable");
+                    return;
+                }
+                setMic("ready", "Microphone ready 🎙️");
+                micHelp.textContent = "Once the candles are lit, blow steadily toward your microphone for a moment.";
+                if (S.phase === "wish") beginListening();
+            }
+
+            function beginListening() {
+                if (!M.ready || M.listening) return;
+                resumeCtx();
+                M.listening = true;
+                M.calib = 0;
+                M.cs = 0;
+                M.cn = 0;
+                M.blow = 0;
+                M.listenT = 0;
+                M.hinted = false;
+                setMic("calibrating", "Listening… one moment ✨");
+                micHelp.textContent = "Blow steadily toward your microphone, just like blowing out real candles.";
+            }
+
+            function updateMeter(rms, thr, dt) {
+                const target = clamp((rms * 0.1) / thr, 0, 1);
+                M.lvl += (target - M.lvl) * Math.min(1, dt * 16);
+                meterFill.style.transform = `scaleX(${M.lvl.toFixed(3)})`;
+            }
+
+            function micTick(dt) {
+                if (!M.listening || !M.an || S.phase !== "wish") return;
+                const an = M.an,
+                    td = M.td;
+                if (M.bytes) {
+                    an.getByteTimeDomainData(M.bytes);
+                    for (let i = 0; i < td.length; i++) td[i] = (M.bytes[i] - 128) / 128;
+                } else {
+                    an.getFloatTimeDomainData(td);
+                }
+                let sum = 0;
+                for (let i = 0; i < td.length; i++) sum += td[i] * td[i];
+                const rms = Math.sqrt(sum / td.length);
+                an.getFloatFrequencyData(M.fd);
+                const hz = S.actx.sampleRate / an.fftSize;
+                const lo = Math.max(1, Math.floor(120 / hz));
+                const hi = Math.min(M.fd.length - 1, Math.floor(4000 / hz));
+                let ls = 0,
+                    ps = 0,
+                    n = 0;
+                for (let i = lo; i <= hi; i++) {
+                    let db = M.fd[i];
+                    if (!isFinite(db)) db = -160;
+                    const p = Math.pow(10, db / 10) + 1e-18;
+                    ps += p;
+                    ls += Math.log(p);
+                    n++;
+                }
+                const flat = n ? Math.exp(ls / n) / (ps / n) : 0;
+
+                if (M.calib < 0.7) {
+                    M.calib += dt;
+                    M.cs += rms;
+                    M.cn++;
+                    if (M.calib >= 0.7) {
+                        M.floor = clamp(M.cs / M.cn, 0.002, 0.08);
+                        setMic("listening", "Listening — blow gently toward your mic 🌬️");
+                    }
+                    updateMeter(rms, 0.02, dt);
+                    return;
+                }
+
+                const thr = clamp(M.floor * 1.4 + 0.006, 0.01, 0.04);
+                const isBlow = rms > thr;
+                if (isBlow) {
+                    M.blow += dt;
+                } else {
+                    M.blow = Math.max(0, M.blow - dt * 1.4);
+                    if (rms < thr) M.floor += (rms - M.floor) * Math.min(1, dt * 0.5);
+                }
+                M.listenT += dt;
+                updateMeter(rms, thr, dt);
+
+                const prog = clamp(M.blow / NEED, 0, 1);
+                micPanel.style.setProperty("--p", prog.toFixed(3));
+                const windTarget = clamp((rms - thr * 0.5) / (thr * 3), 0, 1);
+                M.wind += (windTarget - M.wind) * Math.min(1, dt * 10);
+                svg.style.setProperty("--wind", M.wind.toFixed(3));
+                svg.style.setProperty("--prog", prog.toFixed(3));
+
+                if (M.blow > 0.08) setMic("blowing", "That's it — keep blowing! 🌬️");
+                else if (M.state === "blowing" && M.blow === 0) setMic("listening", "Listening — blow gently toward your mic 🌬️");
+
+                if (!M.hinted && M.listenT > 12) {
+                    M.hinted = true;
+                    micHelp.textContent = "Try blowing a little closer to the microphone, or use the button below.";
+                }
+                if (M.blow >= NEED) blowOut("mic");
+            }
+
+            const Music = {
+                built: false,
+                playing: false,
+                paused: false,
+                muted: false,
+                vol: 0.6,
+                bus: null,
+                input: null,
+                master: null,
+                timer: null,
+                idx: 0,
+                pass: 0,
+                loopStart: 0,
+                noise: null,
+                events: null
+            };
+            const SPB = 60 / 118;
+            const LOOP = 27;
+            const mtof = m => 440 * Math.pow(2, (m - 69) / 12);
+
+            function buildEvents() {
+                const ev = [];
+                [
+                    [0, 67, 0.75],
+                    [0.75, 67, 0.25],
+                    [1, 69, 1],
+                    [2, 67, 1],
+                    [3, 72, 1],
+                    [4, 71, 2],
+                    [6, 67, 0.75],
+                    [6.75, 67, 0.25],
+                    [7, 69, 1],
+                    [8, 67, 1],
+                    [9, 74, 1],
+                    [10, 72, 2],
+                    [12, 67, 0.75],
+                    [12.75, 67, 0.25],
+                    [13, 79, 1],
+                    [14, 76, 1],
+                    [15, 72, 1],
+                    [16, 71, 1],
+                    [17, 69, 1],
+                    [18, 77, 0.75],
+                    [18.75, 77, 0.25],
+                    [19, 76, 1],
+                    [20, 72, 1],
+                    [21, 74, 1],
+                    [22, 72, 3]
+                ]
+                .forEach(([b, m, d]) => ev.push({
+                    b,
+                    type: "mel",
+                    m,
+                    d
+                }));
+                const CH = {
+                    C: [48, [60, 64, 67]],
+                    G7: [43, [59, 62, 65]],
+                    C7: [48, [64, 67, 70]],
+                    F: [41, [60, 65, 69]]
+                };
+                [
+                    [1, "C", "C"],
+                    [4, "G7", "G7"],
+                    [7, "G7", "G7"],
+                    [10, "C", "C"],
+                    [13, "C7", "C7"],
+                    [16, "F", "F"],
+                    [19, "C", "G7"],
+                    [22, "C", "C"]
+                ].forEach(([b, a, c]) => {
+                    ev.push({
+                        b,
+                        type: "bass",
+                        m: CH[a][0]
+                    });
+                    ev.push({
+                        b: b + 1,
+                        type: "chord",
+                        n: CH[a][1]
+                    });
+                    ev.push({
+                        b: b + 2,
+                        type: "chord",
+                        n: CH[c][1]
+                    });
+                    if (c !== a) ev.push({
+                        b: b + 2,
+                        type: "bass",
+                        m: CH[c][0],
+                        soft: true
+                    });
+                    ev.push({
+                        b: b + 1,
+                        type: "hat"
+                    }, {
+                        b: b + 2,
+                        type: "hat"
+                    });
+                });
+                ev.push({
+                    b: 25,
+                    type: "bass",
+                    m: 48
+                });
+                [72, 76, 79, 84].forEach((m, i) => ev.push({
+                    b: 25 + i * 0.5,
+                    type: "arp",
+                    m
+                }));
+                ev.push({
+                    b: 26,
+                    type: "hat"
+                });
+                return ev.sort((p, q) => p.b - q.b);
+            }
+
+            function buildChain() {
+                const ctx = S.actx;
+                Music.master = ctx.createGain();
+                Music.master.gain.value = 0;
+                const comp = ctx.createDynamicsCompressor();
+                comp.threshold.value = -16;
+                comp.knee.value = 14;
+                comp.ratio.value = 3.5;
+                comp.attack.value = 0.004;
+                comp.release.value = 0.25;
+                Music.input = ctx.createGain();
+                const delay = ctx.createDelay(1.5);
+                const fb = ctx.createGain();
+                const wet = ctx.createGain();
+                const tone = ctx.createBiquadFilter();
+                delay.delayTime.value = SPB * 0.75;
+                fb.gain.value = 0.26;
+                wet.gain.value = 0.2;
+                tone.type = "lowpass";
+                tone.frequency.value = 3000;
+                Music.input.connect(comp);
+                Music.input.connect(delay);
+                delay.connect(tone);
+                tone.connect(fb);
+                fb.connect(delay);
+                tone.connect(wet);
+                wet.connect(comp);
+                comp.connect(Music.master);
+                Music.master.connect(ctx.destination);
+                const len = Math.floor(ctx.sampleRate * 0.12);
+                Music.noise = ctx.createBuffer(1, len, ctx.sampleRate);
+                const data = Music.noise.getChannelData(0);
+                for (let i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
+                Music.events = buildEvents();
+                Music.built = true;
+            }
+
+            function voiceBell(m, t, d, oct, amp) {
+                const ctx = S.actx,
+                    out = Music.bus;
+                if (!out) return;
+                const f = mtof(m) * oct;
+                const len = Math.max(0.55, d * SPB * 1.3 + 0.35);
+                const g = ctx.createGain();
+                g.gain.setValueAtTime(0.0001, t);
+                g.gain.exponentialRampToValueAtTime((oct > 1 ? 0.11 : 0.16) * amp, t + 0.012);
+                g.gain.exponentialRampToValueAtTime(0.0001, t + len);
+                g.connect(out);
+                const o1 = ctx.createOscillator();
+                o1.type = "sine";
+                o1.frequency.value = f;
+                o1.connect(g);
+                const o2 = ctx.createOscillator();
+                const g2 = ctx.createGain();
+                o2.type = "sine";
+                o2.frequency.value = f * 2.01;
+                g2.gain.value = oct > 1 ? 0.12 : 0.26;
+                o2.connect(g2);
+                g2.connect(g);
+                const o3 = ctx.createOscillator();
+                const g3 = ctx.createGain();
+                o3.type = "triangle";
+                o3.frequency.value = f;
+                const hold = Math.max(0.12, d * SPB * 0.92);
+                g3.gain.setValueAtTime(0.0001, t);
+                g3.gain.linearRampToValueAtTime(0.06 * amp, t + 0.04);
+                g3.gain.setValueAtTime(0.06 * amp, t + hold);
+                g3.gain.exponentialRampToValueAtTime(0.0001, t + hold + 0.25);
+                o3.connect(g3);
+                g3.connect(out);
+                const end = t + Math.max(len, hold + 0.3) + 0.05;
+                [o1, o2, o3].forEach(o => {
+                    o.start(t);
+                    o.stop(end);
+                });
+            }
+
+            function voiceBass(m, t, soft) {
+                const ctx = S.actx,
+                    out = Music.bus;
+                if (!out) return;
+                const g = ctx.createGain();
+                g.gain.setValueAtTime(0.0001, t);
+                g.gain.exponentialRampToValueAtTime(soft ? 0.11 : 0.2, t + 0.015);
+                g.gain.exponentialRampToValueAtTime(0.0001, t + 0.7);
+                g.connect(out);
+                const o1 = ctx.createOscillator();
+                o1.type = "sine";
+                o1.frequency.value = mtof(m);
+                o1.connect(g);
+                const o2 = ctx.createOscillator();
+                const g2 = ctx.createGain();
+                o2.type = "triangle";
+                o2.frequency.value = mtof(m + 12);
+                g2.gain.value = 0.35;
+                o2.connect(g2);
+                g2.connect(g);
+                o1.start(t);
+                o2.start(t);
+                o1.stop(t + 0.75);
+                o2.stop(t + 0.75);
+            }
+
+            function voiceChord(notes, t) {
+                const ctx = S.actx,
+                    out = Music.bus;
+                if (!out) return;
+                const g = ctx.createGain();
+                g.gain.setValueAtTime(0.0001, t);
+                g.gain.exponentialRampToValueAtTime(0.05, t + 0.012);
+                g.gain.exponentialRampToValueAtTime(0.0001, t + 0.34);
+                const lp = ctx.createBiquadFilter();
+                lp.type = "lowpass";
+                lp.frequency.value = 2400;
+                g.connect(lp);
+                lp.connect(out);
+                notes.forEach(nt => {
+                    const o = ctx.createOscillator();
+                    o.type = "triangle";
+                    o.frequency.value = mtof(nt);
+                    o.connect(g);
+                    o.start(t);
+                    o.stop(t + 0.38);
+                });
+            }
+
+            function voiceHat(t) {
+                const ctx = S.actx,
+                    out = Music.bus;
+                if (!out || !Music.noise) return;
+                const src = ctx.createBufferSource();
+                src.buffer = Music.noise;
+                const hp = ctx.createBiquadFilter();
+                hp.type = "highpass";
+                hp.frequency.value = 7000;
+                const g = ctx.createGain();
+                g.gain.setValueAtTime(0.0001, t);
+                g.gain.exponentialRampToValueAtTime(0.03, t + 0.004);
+                g.gain.exponentialRampToValueAtTime(0.0001, t + 0.07);
+                src.connect(hp);
+                hp.connect(g);
+                g.connect(out);
+                src.start(t);
+                src.stop(t + 0.09);
+            }
+
+            function playEvent(e, t) {
+                const oct = Music.pass % 2 ? 2 : 1;
+                if (e.type === "mel") voiceBell(e.m, t, e.d, oct, 1);
+                else if (e.type === "arp") voiceBell(e.m, t, 0.5, 1, 0.55);
+                else if (e.type === "bass") voiceBass(e.m, t, e.soft);
+                else if (e.type === "chord") voiceChord(e.n, t);
+                else if (e.type === "hat") voiceHat(t);
+            }
+
+            function schedule() {
+                const ctx = S.actx;
+                if (!ctx || !Music.bus) return;
+                const now = ctx.currentTime;
+                const ahead = now + 0.25;
+                const ev = Music.events;
+                let guard = 0;
+                while (guard++ < 96) {
+                    const e = ev[Music.idx];
+                    const t = Music.loopStart + e.b * SPB;
+                    if (t > ahead) break;
+                    if (t >= now - 0.05) playEvent(e, t);
+                    Music.idx++;
+                    if (Music.idx >= ev.length) {
+                        Music.idx = 0;
+                        Music.pass++;
+                        Music.loopStart += LOOP * SPB;
+                    }
+                }
+            }
+
+            function applyVolume() {
+                if (!Music.master || !S.actx) return;
+                const v = Music.muted ? 0 : Music.vol * Music.vol;
+                Music.master.gain.setTargetAtTime(v, S.actx.currentTime, 0.06);
+            }
+
+            function musicStart() {
+                const ctx = S.actx;
+                if (!ctx) return;
+                if (!Music.built) buildChain();
+                musicStop();
+                const bus = ctx.createGain();
+                bus.connect(Music.input);
+                Music.bus = bus;
+                const now = ctx.currentTime;
+                bus.gain.setValueAtTime(0, now);
+                bus.gain.linearRampToValueAtTime(1, now + 3.2);
+                applyVolume();
+                Music.idx = 0;
+                Music.pass = 0;
+                Music.loopStart = now + 0.15;
+                Music.playing = true;
+                Music.paused = false;
+                Music.timer = setInterval(schedule, 40);
+                schedule();
+                updateMusicUI();
+            }
+
+            function musicStop() {
+                if (Music.timer) clearInterval(Music.timer);
+                Music.timer = null;
+                const bus = Music.bus;
+                Music.bus = null;
+                if (bus && S.actx) {
+                    const now = S.actx.currentTime;
+                    try {
+                        bus.gain.cancelScheduledValues(now);
+                        bus.gain.setValueAtTime(bus.gain.value, now);
+                        bus.gain.linearRampToValueAtTime(0, now + 0.35);
+                    } catch (e) {}
+                    setTimeout(() => {
+                        try {
+                            bus.disconnect();
+                        } catch (e) {}
+                    }, 500);
+                }
+                Music.playing = false;
+                Music.paused = false;
+                updateMusicUI();
+            }
+
+            async function musicTogglePlay() {
+                const ctx = S.actx;
+                if (!ctx) return;
+                if (!Music.playing) {
+                    await resumeCtx();
+                    if (ctx.state === "running" && (S.phase === "celebrate" || S.phase === "final")) {
+                        musicStart();
+                        cardActions.hidden = true;
+                        dock.hidden = false;
+                    }
+                    return;
+                }
+                if (Music.paused) {
+                    Music.paused = false;
+                    updateMusicUI();
+                    await resumeCtx();
+                    if (!Music.bus) return;
+                    const t = ctx.currentTime;
+                    Music.bus.gain.cancelScheduledValues(t);
+                    Music.bus.gain.setValueAtTime(0, t);
+                    Music.bus.gain.linearRampToValueAtTime(1, t + 0.5);
+                } else {
+                    Music.paused = true;
+                    updateMusicUI();
+                    if (!Music.bus) return;
+                    const t = ctx.currentTime;
+                    const gn = Music.bus.gain;
+                    gn.cancelScheduledValues(t);
+                    gn.setValueAtTime(gn.value, t);
+                    gn.linearRampToValueAtTime(0, t + 0.3);
+                    const run = S.run;
+                    setTimeout(() => {
+                        if (Music.paused && run === S.run && ctx.state === "running") ctx.suspend().catch(() => {});
+                    }, 340);
+                }
+            }
+
+            function updateMusicUI() {
+                const on = Music.playing && !Music.paused;
+                musicToggle.dataset.state = on ? "playing" : "paused";
+                musicToggle.setAttribute("aria-label", on ? "Pause birthday music" : "Play birthday music");
+                muteToggle.dataset.state = Music.muted || Music.vol === 0 ? "muted" : "on";
+                muteToggle.setAttribute("aria-pressed", Music.muted ? "true" : "false");
+                volume.setAttribute("aria-valuetext", `${Math.round(Music.vol * 100)}%`);
+            }
+
+            async function startMusic() {
+                const run = S.run;
+                if (!S.actx) return;
+                await resumeCtx();
+                if (run !== S.run) return;
+                if (S.actx.state === "running") {
+                    musicStart();
+                    cardActions.hidden = true;
+                } else {
+                    cardActions.hidden = false;
+                    updateMusicUI();
+                }
+                dock.hidden = false;
+            }
+
+            function begin() {
+                if (S.phase !== "idle") return;
+                ensureAudio();
+                setPhase("candles");
+                hotspot.disabled = true;
+                instruction.textContent = "Adding your candles… 🕯️";
+                showMicPanel();
+                startMic(S.run);
+                const n = candles.length;
+                const step = reduced ? 90 : 150;
+                const rise = reduced ? 550 : 950;
+                candles.forEach((c, i) => later(() => c.g.classList.add("risen"), i * step));
+                const lightStart = (n - 1) * step + rise;
+                const gap = reduced ? 180 : 280;
+                candles.forEach((c, i) => later(() => {
+                    c.g.classList.add("lit");
+                    const r = c.ember.getBoundingClientRect();
+                    sparks(r.left + r.width / 2, r.top, reduced ? 4 : 14);
+                    if (i === 0) cakeBox.classList.add("candlelit");
+                }, lightStart + i * gap));
+                later(enterWish, lightStart + n * gap + 250);
+            }
+
+            function enterWish() {
+                setPhase("wish");
+                instruction.textContent = "Make a wish... then blow the candles! 🕯️✨";
+                blowBtn.disabled = false;
+                if (M.ready) beginListening();
+            }
+
+            function blowOut(source) {
+                if (S.phase !== "wish") return;
+                setPhase("blowing");
+                const fromWind = M.wind;
+                stopMic();
+                blowBtn.disabled = true;
+                micPanel.style.setProperty("--p", "1");
+                meterFill.style.transform = "scaleX(1)";
+                setMic("done", "Whoosh! Your wish is on its way ✨");
+                instruction.textContent = "Your wish is on its way… ✨";
+                svg.classList.add("blowing");
+                tweenWind(source === "mic" ? fromWind : 0, 1, source === "mic" ? 200 : 650);
+                later(extinguish, source === "mic" ? 650 : 900);
+            }
+
+            function extinguish() {
+                const gap = 120;
+                const order = candles.slice().sort((a, b) => a.x - b.x);
+                order.forEach((c, i) => later(() => {
+                    const r = c.ember.getBoundingClientRect();
+                    c.g.classList.remove("lit");
+                    c.g.classList.add("out");
+                    smoke(r.left + r.width / 2, r.top + r.height / 2);
+                }, i * gap));
+                const done = order.length * gap + 250;
+                later(() => {
+                    svg.classList.remove("blowing");
+                    tweenWind(1, 0, 500);
+                    svg.style.setProperty("--prog", "0");
+                    cakeBox.classList.remove("candlelit");
+                    flash();
+                }, done);
+                later(celebrate, done + 450);
+            }
+
+            function celebrate() {
+                setPhase("celebrate");
+                instruction.textContent = "Happy birthday!";
+                cakeBounce.classList.remove("bounce");
+                void cakeBounce.offsetWidth;
+                cakeBounce.classList.add("bounce");
+                BG.target = reduced ? 1.4 : 3.4;
+                BG.rate = reduced ? 3 : 14;
+                FX.emitters.push({
+                    t: 0,
+                    dur: 3.4,
+                    rate: reduced ? 16 : (W < 640 ? 48 : 85),
+                    acc: 0
+                });
+                sideBursts(1);
+                later(() => sideBursts(0.6), 1100);
+                poppers();
+                balloons();
+                sparkleTick();
+                startMusic();
+                later(() => candles.forEach((c, i) => later(() => c.g.classList.remove("risen"), i * 90)), 800);
+                later(showCard, 1800);
+                later(() => {
+                    BG.target = reduced ? 1.2 : 1.8;
+                    BG.rate = reduced ? 1.2 : 5;
+                }, 7000);
+            }
+
+            function showCard() {
+                setPhase("final");
+                instruction.hidden = true;
+                micPanel.hidden = true;
+                card.hidden = false;
+                announce("Happy Birthday, Rena! Make a wish, enjoy your special day, and keep shining!");
+                later(() => {
+                    const r = card.getBoundingClientRect();
+                    if (r.bottom > window.innerHeight) card.scrollIntoView({
+                        behavior: reduced ? "auto" : "smooth",
+                        block: "end"
+                    });
+                }, 1000);
+            }
+
+            function nudge() {
+                instruction.classList.remove("nudge");
+                void instruction.offsetWidth;
+                instruction.classList.add("nudge");
+                svg.classList.remove("hint-flash");
+                void svg.getBoundingClientRect();
+                svg.classList.add("hint-flash");
+            }
+
+            hotspot.addEventListener("click", begin);
+            cakeBox.addEventListener("click", e => {
+                if (S.phase === "idle" && !hotspot.contains(e.target)) nudge();
+            });
+            instruction.addEventListener("animationend", () => instruction.classList.remove("nudge"));
+            blowBtn.addEventListener("click", () => {
+                ensureAudio();
+                blowOut("button");
+            });
+            playMusicBtn.addEventListener("click", () => {
+                ensureAudio();
+                musicTogglePlay();
+            });
+            musicToggle.addEventListener("click", () => {
+                if (!Music.playing) ensureAudio();
+                musicTogglePlay();
+            });
+            muteToggle.addEventListener("click", () => {
+                Music.muted = !Music.muted;
+                if (!Music.muted && Music.vol === 0) {
+                    Music.vol = 0.5;
+                    volume.value = "50";
+                }
+                applyVolume();
+                updateMusicUI();
+            });
+            volume.addEventListener("input", () => {
+                Music.vol = Number(volume.value) / 100;
+                if (Music.muted && Music.vol > 0) Music.muted = false;
+                applyVolume();
+                updateMusicUI();
+            });
+
+            window.addEventListener("resize", resize);
+            window.addEventListener("pagehide", stopMic);
+
+            if (mq) {
+                const onMq = e => {
+                    reduced = e.matches;
+                    initAmbient();
+                };
+                if (mq.addEventListener) mq.addEventListener("change", onMq);
+                else if (mq.addListener) mq.addListener(onMq);
+            }
+
+            buildCake();
+            buildCandles();
+            resize();
+            updateMusicUI();
+
+            let last = performance.now();
+
+            function frame(now) {
+                const dt = Math.min(0.05, Math.max(0, (now - last) / 1000));
+                last = now;
+                drawBG(dt, now / 1000);
+                drawFX(dt);
+                micTick(dt);
+                requestAnimationFrame(frame);
+            }
+            requestAnimationFrame(frame);
+        })();
+    </script>
+</body>
+
+</html>
